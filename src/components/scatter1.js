@@ -1,10 +1,3 @@
-import * as React from "react"
-import "./style.css"
-import Dashboard from "./Dashboard"
-
-import connector1 from "./components/connector"
-import scatter1 from "./components/scatter1"
-
 const series = [
   {
     data: [
@@ -810,261 +803,45 @@ const series = [
   },
 ]
 
-const config = {
-  dataPool: {
-    connectors: [
-      {
-        id: "micro-element",
-        type: "JSON",
-        options: {
-          firstRowAsNames: false,
-          columnNames: ["Food", "Vitamin A", "Iron"],
-          data: [
-            ["Beef Liver", 6421, 6.5],
-            ["Lamb Liver", 2122, 6.5],
-            ["Cod Liver Oil", 1350, 0.9],
-            ["Mackerel", 388, 1],
-            ["Tuna", 214, 0.6],
-          ],
-        },
-      },
-      connector1,
-    ],
+const chartOptions = {
+  chart: {
+    type: "scatter",
+    zoomType: "xy",
   },
-  gui: {
-    layouts: [
-      {
-        rows: [
-          {
-            cells: [
-              {
-                responsive: {
-                  small: {
-                    width: "100%",
-                  },
-                  medium: {
-                    width: "50%",
-                  },
-                  large: {
-                    width: "30%",
-                  },
-                },
-                layout: {
-                  rows: [
-                    {
-                      cells: [
-                        {
-                          id: "kpi-vitamin-a",
-                          responsive: {
-                            small: {
-                              width: "50%",
-                            },
-                            medium: {
-                              width: "100%",
-                            },
-                            large: {
-                              width: "100%",
-                            },
-                          },
-                          height: 205,
-                        },
-                        {
-                          responsive: {
-                            small: {
-                              width: "50%",
-                            },
-                            medium: {
-                              width: "100%",
-                            },
-                            large: {
-                              width: "100%",
-                            },
-                          },
-                          id: "kpi-iron",
-                          height: 205,
-                        },
-                      ],
-                    },
-                  ],
-                },
-              },
-              {
-                id: "dashboard-col-0",
-                responsive: {
-                  small: {
-                    width: "100%",
-                  },
-                  medium: {
-                    width: "25%",
-                  },
-                  large: {
-                    width: "35%",
-                  },
-                },
-              },
-              {
-                id: "dashboard-col-1",
-                responsive: {
-                  small: {
-                    width: "100%",
-                  },
-                  medium: {
-                    width: "25%",
-                  },
-                  large: {
-                    width: "35%",
-                  },
-                },
-              },
-            ],
-          },
-          {
-            cells: [
-              {
-                id: "dashboard-col-2",
-                height: 323,
-              },
-            ],
-          },
-        ],
-      },
-    ],
+  title: {
+    text: "Olympics athletes by height and weight",
+    align: "left",
   },
-  components: [
-    {
-      type: "KPI",
-      cell: "kpi-vitamin-a",
-      value: 900,
-      valueFormat: "{value}",
-      title: "Vitamin A",
-      subtitle: "daily recommended dose",
+  subtitle: {
+    text: 'Source: <a href="https://www.theguardian.com/sport/datablog/2012/aug/07/olympics-2012-athletes-age-weight-height">The Guardian</a>',
+    align: "left",
+  },
+  xAxis: {
+    title: {
+      text: "Height",
     },
-    {
-      type: "KPI",
-      cell: "kpi-iron",
-      value: 8,
-      title: "Iron",
-      valueFormat: "{value}",
-      subtitle: "daily recommended dose",
+    labels: {
+      format: "{value} m",
     },
-    {
-      cell: "title",
-      type: "HTML",
-      elements: [
-        {
-          tagName: "h1",
-          textContent: "MicroElement amount in Foods",
-        },
-      ],
+    startOnTick: true,
+    endOnTick: true,
+    showLastLabel: true,
+  },
+  yAxis: {
+    title: {
+      text: "Weight",
     },
-    {
-      connector: {
-        id: "scatter-data",
-      },
-      cell: "dashboard-col-0",
-      type: "Highcharts",
-      chartOptions: scatter1,
+    labels: {
+      format: "{value} kg",
     },
-    {
-      cell: "dashboard-col-1",
-      sync: {
-        visibility: true,
-        highlight: true,
-        extremes: true,
-      },
-      connector: {
-        id: "micro-element",
-      },
-      type: "Highcharts",
-      columnAssignment: {
-        Food: "x",
-        Iron: "y",
-      },
-      chartOptions: {
-        xAxis: {
-          type: "category",
-          accessibility: {
-            description: "Groceries",
-          },
-        },
-        yAxis: {
-          title: {
-            text: "mcg",
-          },
-          max: 8,
-          plotLines: [
-            {
-              value: 8,
-              dashStyle: "shortDash",
-              label: {
-                text: "RDA",
-                align: "right",
-                style: {
-                  color: "#B73C28",
-                },
-              },
-            },
-          ],
-        },
-        credits: {
-          enabled: false,
-        },
-        plotOptions: {
-          series: {
-            marker: {
-              radius: 6,
-            },
-          },
-        },
-        title: {
-          text: "",
-        },
-        legend: {
-          enabled: true,
-          verticalAlign: "top",
-        },
-        chart: {
-          animation: false,
-          type: "column",
-          spacing: [30, 30, 30, 20],
-        },
-        tooltip: {
-          valueSuffix: " mcg",
-          stickOnContact: true,
-        },
-        lang: {
-          accessibility: {
-            chartContainerLabel: "Iron in food. Highcharts Interactive Chart.",
-          },
-        },
-        accessibility: {
-          description: `The chart is displaying the Iron amount in
-              micrograms for some groceries. There is a plotLine demonstrating
-              the daily Recommended Dietary Allowance (RDA) of 8
-              micrograms.`,
-          point: {
-            valueSuffix: " mcg",
-          },
-        },
-      },
-    },
-    {
-      cell: "dashboard-col-2",
-      connector: {
-        id: "micro-element",
-      },
-      type: "DataGrid",
-      editable: true,
-      sync: {
-        highlight: true,
-        visibility: true,
-      },
-    },
-  ],
+  },
+  legend: {
+    enabled: true,
+  },
+  tooltip: {
+    pointFormat: "Height: {point.x} m <br/> Weight: {point.y} kg",
+  },
+  // series,
 }
 
-console.log(config.dataPool.connectors)
-
-export default function App() {
-  return <Dashboard config={config} />
-}
+export default chartOptions
