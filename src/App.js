@@ -3,9 +3,6 @@ import "./style.css";
 import Dashboard from "./Dashboard";
 import axios from "axios";
 
-// import connector1 from "./components/connector"
-// import scatter1 from "./components/scatter1"
-
 // const dummyData = [
 //   ["x", "Global", "Africa", "Europe", "South-East Asia"],
 //   [946684800000, 73, 54, 94, 64],
@@ -34,7 +31,7 @@ import axios from "axios";
 
 const configDummy = {
   dataPool: {
-    connectors: [],
+    connectors: [], // fetched from Server...
   },
   gui: {
     layouts: [
