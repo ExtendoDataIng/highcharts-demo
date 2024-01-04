@@ -1,37 +1,81 @@
-import React, { useEffect, useState } from "react";
-import "./style.css";
-import Dashboard from "./Dashboard";
-import axios from "axios";
+import React, { useEffect, useState } from "react"
+import "./style.css"
+import Dashboard from "./Dashboard"
 
-// const dummyData = [
-//   ["x", "Global", "Africa", "Europe", "South-East Asia"],
-//   [946684800000, 73, 54, 94, 64],
-//   [978307200000, 73, 55, 94, 65],
-//   [1009843200000, 74, 59, 93, 65],
-//   [1041379200000, 75, 61, 92, 66],
-//   [1072915200000, 76, 62, 95, 66],
-//   [1104537600000, 78, 65, 95, 71],
-//   [1136073600000, 79, 66, 95, 72],
-//   [1167609600000, 80, 69, 96, 73],
-//   [1199145600000, 82, 71, 96, 75],
-//   [1230768000000, 83, 74, 95, 78],
-//   [1262304000000, 83, 72, 95, 80],
-//   [1293840000000, 84, 70, 95, 82],
-//   [1325376000000, 84, 71, 95, 83],
-//   [1356998400000, 84, 70, 96, 85],
-//   [1388534400000, 85, 71, 94, 87],
-//   [1420070400000, 85, 72, 94, 88],
-//   [1451606400000, 85, 73, 94, 87],
-//   [1483228800000, 85, 73, 93, 90],
-//   [1514764800000, 85, 73, 94, 91],
-//   [1546300800000, 86, 74, 95, 90],
-//   [1577836800000, 82, 71, 94, 85],
-//   [1609459200000, 80, 70, 94, 82],
-// ];
+const data = [
+  ["Food", "Vitamin A"],
+  ["Beef Liver", 6421],
+  ["Lamb Liver", 2122],
+  ["Cod Liver Oil", 1350],
+  ["Mackerel", 388],
+  ["Tuna", 214],
+]
+
+const chartOptions = {
+  chart: {
+    animation: false,
+    type: "column",
+  },
+  credits: {
+    enabled: false,
+  },
+  title: {
+    text: "Tester",
+  },
+  subtitle: {
+    text: "Sub-title",
+  },
+  accessibility: {
+    point: {
+      descriptionFormat: "Vitamin A content in {name}: {y} micrograms.",
+    },
+    description: `The first bar chart uses some example data to present
+        the ability to edit the connector values by manually changing the height
+        of the bars in the series, which is possible with allowConnectorUpdate
+        option set to true.`,
+  },
+  tooltip: {
+    stickOnContact: true,
+    valueSuffix: " mcg",
+  },
+  xAxis: {
+    title: {
+      text: "X Axis Title",
+    },
+  },
+  yAxis: {
+    title: {
+      text: "Y Axis Title",
+    },
+    accessibility: {
+      description: "amount of Vitamin A in micrograms",
+    },
+  },
+  legend: {
+    enabled: true,
+  },
+  plotOptions: {
+    series: {
+      colorByPoint: true,
+      dragDrop: {
+        draggableY: true,
+        dragPrecisionY: 1,
+      },
+    },
+  },
+}
 
 const configDummy = {
   dataPool: {
-    connectors: [], // fetched from Server...
+    connectors: [
+      {
+        id: "connector-1",
+        type: "JSON",
+        options: {
+          data,
+        },
+      },
+    ],
   },
   gui: {
     layouts: [
@@ -41,53 +85,7 @@ const configDummy = {
           {
             cells: [
               {
-                id: "title",
-              },
-            ],
-          },
-          {
-            cells: [
-              {
                 id: "dashboard-col-1",
-              },
-            ],
-          },
-          {
-            cells: [
-              {
-                id: "dashboard-col-2",
-              },
-            ],
-          },
-          {
-            cells: [
-              {
-                id: "dashboard-col-3",
-                responsive: {
-                  small: {
-                    width: "100%",
-                  },
-                  medium: {
-                    width: "50%",
-                  },
-                  large: {
-                    width: "50%",
-                  },
-                },
-              },
-              {
-                id: "dashboard-col-4",
-                responsive: {
-                  small: {
-                    width: "100%",
-                  },
-                  medium: {
-                    width: "50%",
-                  },
-                  large: {
-                    width: "50%",
-                  },
-                },
               },
             ],
           },
@@ -96,27 +94,6 @@ const configDummy = {
     ],
   },
   components: [
-    {
-      cell: "title",
-      type: "HTML",
-      elements: [
-        {
-          tagName: "h1",
-          textContent: "Polio (Pol3) immunization coverage",
-        },
-        {
-          tagName: "div",
-          children: [
-            {
-              tagName: "a",
-              href: "https://apps.who.int/gho/data/",
-              class: "subtitle",
-              textContent: "Among 1-year-olds (%)",
-            },
-          ],
-        },
-      ],
-    },
     {
       cell: "dashboard-col-1",
       type: "Highcharts",
@@ -128,190 +105,14 @@ const configDummy = {
         highlight: true,
       },
       columnAssignment: {
-        x: "x",
-        Global: "y",
+        Food: "x",
+        "Vitamin A": "y",
       },
-      chartOptions: {
-        chart: {
-          zoomType: "x",
-        },
-        title: {
-          text: "Global",
-        },
-        legend: {
-          enabled: false,
-        },
-        credits: {
-          enabled: false,
-        },
-      },
-      lang: {
-        accessibility: {
-          chartContainerLabel:
-            "Global Polio (Pol3) immunization coverage, Highcharts interactive chart.",
-        },
-      },
-      accessibility: {
-        description: `The chart is displaying the Global Polio (Pol3)
-              immunization coverage. The values are introduced in percents.`,
-      },
-    },
-    {
-      cell: "dashboard-col-2",
-      type: "Highcharts",
-      connector: {
-        id: "connector-1",
-      },
-      sync: {
-        extremes: true,
-        highlight: true,
-      },
-      columnAssignment: {
-        x: "x",
-        "South-East Asia": "y",
-      },
-      chartOptions: {
-        chart: {
-          zoomType: "x",
-        },
-        title: {
-          text: "South-East Asia",
-        },
-        legend: {
-          enabled: false,
-        },
-        credits: {
-          enabled: false,
-        },
-        plotOptions: {
-          series: {
-            colorIndex: 1,
-          },
-        },
-      },
-      lang: {
-        accessibility: {
-          chartContainerLabel:
-            "South-East Asia Polio (Pol3) immunization coverage, Highcharts interactive chart.",
-        },
-      },
-      accessibility: {
-        description: `The chart is displaying the Polio (Pol3)
-              immunization coverage in South-East Asia. The values are
-              introduced in percents.`,
-      },
-    },
-    {
-      cell: "dashboard-col-3",
-      type: "Highcharts",
-      connector: {
-        id: "connector-2",
-      },
-      sync: {
-        extremes: true,
-        highlight: true,
-      },
-      columnAssignment: {
-        x: "x",
-        Africa: "y",
-      },
-      chartOptions: {
-        chart: {
-          zoomType: "y",
-        },
-        title: {
-          text: "Africa",
-        },
-        plotOptions: {
-          series: {
-            colorIndex: 2,
-          },
-        },
-        legend: {
-          enabled: false,
-        },
-        credits: {
-          enabled: false,
-        },
-      },
-      lang: {
-        accessibility: {
-          chartContainerLabel:
-            "Africa Polio (Pol3) immunization coverage, Highcharts interactive chart.",
-        },
-      },
-      accessibility: {
-        description: `The chart is displaying the Polio (Pol3)
-              immunization coverage in Africa. The values are
-              introduced in percents.`,
-      },
-    },
-    {
-      cell: "dashboard-col-4",
-      type: "Highcharts",
-      connector: {
-        id: "connector-2",
-      },
-      sync: {
-        extremes: true,
-        highlight: true,
-      },
-      columnAssignment: {
-        x: "x",
-        Europe: "y",
-      },
-      chartOptions: {
-        chart: {
-          zoomType: "y",
-        },
-        title: {
-          text: "Europe",
-        },
-        plotOptions: {
-          series: {
-            colorIndex: 3,
-          },
-        },
-      },
-      lang: {
-        accessibility: {
-          chartContainerLabel:
-            "Europe Polio (Pol3) immunization coverage, Highcharts interactive chart.",
-        },
-      },
-      accessibility: {
-        description: `The chart is displaying the Polio (Pol3)
-              immunization coverage in Europe. The values are
-              introduced in percents.`,
-      },
+      chartOptions,
     },
   ],
-};
+}
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
-  const [config, setConfig] = useState(configDummy);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post("http://localhost:7000/test");
-        const { connectors } = response.data.dashboard.dataPool;
-        const newData = config;
-        newData.dataPool.connectors = connectors;
-        setConfig(newData);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  return <Dashboard config={config} />;
+  return <Dashboard config={configDummy} />
 }
