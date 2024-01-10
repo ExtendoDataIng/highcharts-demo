@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./style.css";
 import Dashboard from "./Dashboard";
+import Highcharts from 'highcharts';
 
 const data = [
   ["carrier_plan_name", "MS-DRG 247", "MS-DRG 794", "CPT 43239", "CPT 99214", "CPT 99291", "HCPCS J2357", "HCPCS J3241", "HCPCS J7686"],
@@ -33,6 +34,21 @@ const data_4 = [
   ["Medcost Preferred", 0, 7270.24, 0, 7270.24, 0, 7270.24, 0, 7270.24],
   ["UHC Choice POS Plus", 0, 7270.24, 0, 7270.24, 0, 7270.24, 0, 7270.24],
 ];
+
+const data_5 = [
+  ["carrier_plan_name", "MS-DRG 247", "MS-DRG 794", "CPT 43239", "CPT 99214", "CPT 99291", "HCPCS J2357", "HCPCS J3241", "HCPCS J7686"],
+  ["Aetna Choice POS", 9067.02, 9067.02, 0, 0, 0, 9067.02, 9067.02, 9067.02],
+  ["BCBS NC Preferred Provider Network", 5000, 5000, 0, 0, 0, 5000, 5000, 5000],
+  ["Medcost Preferred", 18600, 18600, 0, 0, 0, 18600, 18600, 18600],
+  ["UHC Choice POS Plus", 3000, 3000, 0, 0, 0, 3000, 3000, 3000],
+];
+
+// Function to calculate the average of a numeric array
+const calculateAverage = arr => arr.slice(1).reduce((sum, val) => sum + val, 0) / (arr.length - 1);
+
+// Create a new array 'medicare_rate' with the averages from data_5
+const medicare_rate = data_5.slice(1).map(row => calculateAverage(row));
+
 
 export default function App() {
   const [currentData, setCurrentData] = useState(data);
@@ -129,6 +145,14 @@ export default function App() {
               },
             },
           },
+          series: [
+            {
+              type: 'line',
+              step: 'center',
+              name: 'Average',
+              data: medicare_rate,
+            },
+          ]
         },
       },
     ],
