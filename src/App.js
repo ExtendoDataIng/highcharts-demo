@@ -1,170 +1,165 @@
-import React, { useState } from "react";
-import "./style.css";
-import Dashboard from "./Dashboard";
-import Highcharts from 'highcharts';
+import React, { useEffect } from "react";
+import Highcharts from "highcharts";
+import HighchartsMore from "highcharts/highcharts-more";
+import HighchartsData from "highcharts/modules/data";
+import processDensity from "./processDensity"; // Ajusta la ruta según la ubicación de tu archivo processDensity.js
+//
 
-const data = [
-  ["carrier_plan_name", "MS-DRG 247", "MS-DRG 794", "CPT 43239", "CPT 99214", "CPT 99291", "HCPCS J2357", "HCPCS J3241", "HCPCS J7686"],
-  ["Aetna Choice POS", 0, 9067.02, 809.75, 102.4, 284.67, 9.16, 103.53, 712.7],
-  ["BCBS NC Preferred Provider Network", 21910.04, 7270.24, 590.16, 1, 0, 43.08, 491.07, 1069.18],
-  ["Medcost Preferred", 0, 0, 0, 669.95, 0, 0, 0, 0],
-  ["UHC Choice POS Plus", 0, 0, 1948.92, 0, 0, 0, 0, 0],
-];
+// Inicializa los módulos
+HighchartsMore(Highcharts);
+HighchartsData(Highcharts);
 
-const data_2 = [
-  ["carrier_plan_name", "MS-DRG 247", "MS-DRG 794", "CPT 43239", "CPT 99214", "CPT 99291", "HCPCS J2357", "HCPCS J3241", "HCPCS J7686"],
-  ["Aetna Choice POS", 0, 9067.02, 809.75, 102.4, 284.67, 9.16, 103.53, 712.7],
-  ["BCBS NC Preferred Provider Network", 0, 9067.02, 809.75, 102.4, 284.67, 9.16, 103.53, 712.7],
-  ["Medcost Preferred", 0, 9067.02, 809.75, 102.4, 284.67, 9.16, 103.53, 712.7],
-  ["UHC Choice POS Plus", 0, 9067.02, 809.75, 102.4, 284.67, 9.16, 103.53, 712.7],
-];
+const App = () => {
+  useEffect(() => {
+    const discipline = [
+      "triathlon",
+      "badminton",
+      "fencing",
+      "rowing",
+      "handball",
+      "cycling",
+      "gymnastics"
+    ];
 
-const data_3 = [
-  ["carrier_plan_name", "MS-DRG 247", "MS-DRG 794", "CPT 43239", "CPT 99214", "CPT 99291", "HCPCS J2357", "HCPCS J3241", "HCPCS J7686"],
-  ["Aetna Choice POS", 9067.02, 9067.02, 9067.02, 9067.02, 9067.02, 9067.02, 9067.02, 9067.02],
-  ["BCBS NC Preferred Provider Network", 9067.02, 9067.02, 9067.02, 9067.02, 9067.02, 9067.02, 9067.02, 9067.02],
-  ["Medcost Preferred", 9067.02, 9067.02, 9067.02, 9067.02, 9067.02, 9067.02, 9067.02, 9067.02],
-  ["UHC Choice POS Plus", 9067.02, 9067.02, 9067.02, 9067.02, 9067.02, 9067.02, 9067.02, 9067.02],
-];
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://raw.githubusercontent.com/mekhatria/demo_highcharts/master/densityMaleData.json?callback=?"
+        );
+        const dataJson = await response.json();
 
-const data_4 = [
-  ["carrier_plan_name", "MS-DRG 247", "MS-DRG 794", "CPT 43239", "CPT 99214", "CPT 99291", "HCPCS J2357", "HCPCS J3241", "HCPCS J7686"],
-  ["Aetna Choice POS", 0, 7270.24, 0, 7270.24, 0, 7270.24, 0, 7270.24],
-  ["BCBS NC Preferred Provider Network", 0, 7270.24, 0, 7270.24, 0, 7270.24, 0, 7270.24],
-  ["Medcost Preferred", 0, 7270.24, 0, 7270.24, 0, 7270.24, 0, 7270.24],
-  ["UHC Choice POS Plus", 0, 7270.24, 0, 7270.24, 0, 7270.24, 0, 7270.24],
-];
+        let redrawing = false;
+        let dataArray = discipline.map(() => []);
 
-const data_5 = [
-  ["carrier_plan_name", "MS-DRG 247", "MS-DRG 794", "CPT 43239", "CPT 99214", "CPT 99291", "HCPCS J2357", "HCPCS J3241", "HCPCS J7686"],
-  ["Aetna Choice POS", 9067.02, 9067.02, 0, 0, 0, 9067.02, 9067.02, 9067.02],
-  ["BCBS NC Preferred Provider Network", 5000, 5000, 0, 0, 0, 5000, 5000, 5000],
-  ["Medcost Preferred", 18600, 18600, 0, 0, 0, 18600, 18600, 18600],
-  ["UHC Choice POS Plus", 3000, 3000, 0, 0, 0, 3000, 3000, 3000],
-];
+        dataJson.forEach((e) => {
+          discipline.forEach((key, value) => {
+            if (e.sport === key) {
+              dataArray[value].push(e.weight);
+            }
+          });
+        });
 
-// Function to calculate the average of a numeric array
-const calculateAverage = arr => arr.slice(1).reduce((sum, val) => sum + val, 0) / (arr.length - 1);
+        let step = 1,
+          precision = 0.00000000001,
+          width = 15;
 
-// Create a new array 'medicare_rate' with the averages from data_5
-const medicare_rate = data_5.slice(1).map(row => calculateAverage(row));
+        let data = processDensity(
+          step,
+          precision,
+          width,
+          ...dataArray
+        );
 
+        let chartsNbr = data.results.length;
+        let xi = data.xiData;
 
-export default function App() {
-  const [currentData, setCurrentData] = useState(data);
-  const [subtitle, setSubtitle] = useState("avg_rate");
+        let dataSeries = [],
+          series = [];
+        data.results.forEach((e, i) => {
+          dataSeries.push([]);
+          dataSeries[i] = e;
+          series.push({
+            data: dataSeries[i],
+            name: discipline[i],
+            zIndex: chartsNbr - i
+          });
+        });
 
-  const handleButtonClick = (newSubtitle, newData) => {
-    setCurrentData(newData);
-    setSubtitle(newSubtitle);
-  };
+        console.log(dataSeries)
+        // console.log(series)
 
-  const configDynamic = {
-    dataPool: {
-      connectors: [
-        {
-          id: "connector-1",
-          type: "JSON",
-          options: {
-            data: currentData,
-          },
-        },
-      ],
-    },
-    gui: {
-      layouts: [
-        {
-          id: "layout-1",
-          rows: [
-            {
-              cells: [
-                {
-                  id: "dashboard-col-1",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    components: [
-      {
-        cell: "dashboard-col-1",
-        type: "Highcharts",
-        connector: {
-          id: "connector-1",
-        },
-        sync: {
-          extremes: true,
-          highlight: true,
-        },
-        columnAssignment: {
-          "MS-DRG 247": "y",
-          "MS-DRG 794": "y",
-          "CPT 43239": "y",
-          "CPT 99214": "y",
-          "CPT 99291": "y",
-          "HCPCS J2357": "y",
-          "HCPCS J3241": "y",
-          "HCPCS J7686": "y",
-        },
-        chartOptions: {
+        Highcharts.chart("container", {
           chart: {
-            animation: false,
-            type: "column",
+            type: "areasplinerange",
+            animation: true,
+            events: {
+              render() {
+                if (!redrawing) {
+                  redrawing = true;
+
+                  this.series.forEach((s) => {
+                    s.update({
+                      fillColor: {
+                        linearGradient: [0, 0, this.plotWidth, 0],
+                        stops: [
+                          [0, Highcharts.color("yellow").setOpacity(0).get("rgba")],
+                          [0.25, "#FFA500"], //orange
+                          [0.5, "#FF0033"], //red
+                          [0.75, "#7A378B"] //purple
+                        ]
+                      }
+                    });
+                  });
+                  redrawing = false;
+                }
+              }
+            }
           },
           title: {
-            text: "Visualization Test Data",
-          },
-          subtitle: {
-            text: subtitle,
-          },
-          tooltip: {
-            stickOnContact: true,
+            text: "The 2012 Olympic male athletes weight"
           },
           xAxis: {
-            title: {
-              text: "carrier_plan_name",
-            },
-            categories: currentData.map(entry => entry[0]).slice(1),
+            labels: { format: "{value} kg" }
           },
           yAxis: {
-            title: {
-              text: `${subtitle} by billing_code_type_label`,
+            title: { text: null },
+            categories: discipline,
+            max: chartsNbr,
+            labels: {
+              formatter: function () {
+                if (this.pos < chartsNbr) return this.value;
+              },
+              style: {
+                textTransform: "capitalize",
+                fontSize: "9px"
+              }
             },
+            startOnTick: true,
+            gridLineWidth: 1,
+            tickmarkPlacement: "on"
           },
-          legend: {
-            enabled: true,
+          tooltip: {
+            useHTML: true,
+            shared: true,
+            crosshairs: true,
+            valueDecimals: 3,
+            headerFormat: null,
+            pointFormat: "<b>{series.name}</b>: {point.x} kg <br/>",
+            footerFormat: null
           },
           plotOptions: {
-            series: {
-              colorByPoint: false,
-              dragDrop: {
-                draggableY: true,
-                dragPrecisionY: 1,
+            areasplinerange: {
+              marker: {
+                enabled: false
               },
-            },
+              states: {
+                hover: {
+                  enabled: false
+                }
+              },
+              pointStart: xi[0],
+              animation: {
+                duration: 0
+              },
+              fillColor: "",
+              lineWidth: 1,
+              color: "black"
+            }
           },
-          series: [
-            {
-              type: 'line',
-              step: 'center',
-              name: 'Average',
-              data: medicare_rate,
-            },
-          ]
-        },
-      },
-    ],
-  };
+          legend: {
+            enabled: false
+          },
+          series: series
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-  return (
-    <div>
-      <button onClick={() => handleButtonClick("avg_rate", data)}>avg_rate</button>
-      <button onClick={() => handleButtonClick("moda_rate", data_2)}>moda_rate</button>
-      <button onClick={() => handleButtonClick("a_rate", data_3)}>a_rate</button>
-      <button onClick={() => handleButtonClick("b_rate", data_4)}>b_rate</button>
-      <Dashboard config={configDynamic} />
-    </div>
-  );
-}
+    fetchData();
+  }, []);
+
+  return <div id="container" />;
+};
+
+export default App;
