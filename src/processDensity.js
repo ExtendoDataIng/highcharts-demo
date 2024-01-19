@@ -31,6 +31,11 @@ function processDensity(step, precision, densityWidth, ...args) {
     return (1 / Math.sqrt(2 * Math.PI)) * Math.exp(Math.pow(xi - u, 2) / -2);
   }
   let gap = -1;
+
+  // Calcular el Geomean de un conjunto de datos
+  function calculateGeomean(data) {
+    return Math.exp(data.reduce((sum, value) => sum + Math.log(value), 0) / data.length);
+  }
   
   //create the upper and lower line of the density
   function density(dataSource) {
@@ -71,6 +76,7 @@ function processDensity(step, precision, densityWidth, ...args) {
       jStat.quartiles(e)[2],
       Math.max(...e)
     );
+    stat[index].push(calculateGeomean(e));
     index++;
   });
   return { xiData, results, stat };
