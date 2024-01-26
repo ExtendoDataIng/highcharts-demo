@@ -41,21 +41,36 @@ function processDensity(step, precision, densityWidth, ...args) {
   function density(dataSource) {
     let data = [];
     let N = dataSource.length;
-
     gap++;
+    
     for (let i = 0; i < xiData.length; i++) {
       let temp = 0;
       for (let j = 0; j < dataSource.length; j++) {
         temp = temp + kdeProcess(xiData[i], dataSource[j]);
       }
-      data.push([xiData[i], (1 / N) * temp]);
+      
+      data.push({
+        x: xiData[i],
+        density: (1 / N) * temp,
+        frequency: dataSource.filter(value => value === xiData[i]).length
+      });
     }
-
-    return data.map((densityPoint, i) => {
-      if (densityPoint[1] > precision) {
-        return [xiData[i], gap, densityPoint[1] * densityWidth + gap];
+  
+    return data.map((densityPoint) => {
+      if (densityPoint.density > precision) {
+        return {
+          x: densityPoint.x,
+          low: gap,
+          high: densityPoint.density * densityWidth + gap,
+          frequency: densityPoint.frequency
+        };
       } else {
-        return [xiData[i], null, null];
+        return {
+          x: densityPoint.x,
+          low: null,
+          high: null,
+          frequency: null
+        };
       }
     });
   }
