@@ -1,0 +1,130 @@
+[
+	{
+		"geo_key": "39580",
+		"geo_name": "Raleigh-Cary, NC",
+		"n_facility_name": 108,
+		"n_billing_code_type_label": 8,
+		"n_carrier_plan_name": 3,
+		"n_distinct_negotiated_rates": 195
+	},
+	{
+		"geo_key": "20500",
+		"geo_name": "Durham-Chapel Hill, NC",
+		"n_facility_name": 72,
+		"n_billing_code_type_label": 8,
+		"n_carrier_plan_name": 4,
+		"n_distinct_negotiated_rates": 167
+	},
+	{
+		"geo_key": "24660",
+		"geo_name": "Greensboro-High Point, NC",
+		"n_facility_name": 17,
+		"n_billing_code_type_label": 8,
+		"n_carrier_plan_name": 3,
+		"n_distinct_negotiated_rates": 51
+	},
+	{
+		"geo_key": "15500",
+		"geo_name": "Burlington, NC",
+		"n_facility_name": 15,
+		"n_billing_code_type_label": 8,
+		"n_carrier_plan_name": 3,
+		"n_distinct_negotiated_rates": 53
+	},
+	{
+		"geo_key": "11700",
+		"geo_name": "Asheville, NC",
+		"n_facility_name": 7,
+		"n_billing_code_type_label": 8,
+		"n_carrier_plan_name": 2,
+		"n_distinct_negotiated_rates": 16
+	},
+	{
+		"geo_key": "31300",
+		"geo_name": "Lumberton, NC",
+		"n_facility_name": 6,
+		"n_billing_code_type_label": 8,
+		"n_carrier_plan_name": 3,
+		"n_distinct_negotiated_rates": 42
+	},
+	{
+		"geo_key": "40580",
+		"geo_name": "Rocky Mount, NC",
+		"n_facility_name": 6,
+		"n_billing_code_type_label": 8,
+		"n_carrier_plan_name": 3,
+		"n_distinct_negotiated_rates": 21
+	},
+	{
+		"geo_key": "25860",
+		"geo_name": "Hickory-Lenoir-Morganton, NC",
+		"n_facility_name": 5,
+		"n_billing_code_type_label": 8,
+		"n_carrier_plan_name": 4,
+		"n_distinct_negotiated_rates": 30
+	},
+	{
+		"geo_key": "22180",
+		"geo_name": "Fayetteville, NC",
+		"n_facility_name": 4,
+		"n_billing_code_type_label": 6,
+		"n_carrier_plan_name": 2,
+		"n_distinct_negotiated_rates": 15
+	},
+	{
+		"geo_key": "35100",
+		"geo_name": "New Bern, NC",
+		"n_facility_name": 2,
+		"n_billing_code_type_label": 5,
+		"n_carrier_plan_name": 1,
+		"n_distinct_negotiated_rates": 5
+	},
+	{
+		"geo_key": "28820",
+		"geo_name": "Kinston, NC",
+		"n_facility_name": 2,
+		"n_billing_code_type_label": 5,
+		"n_carrier_plan_name": 1,
+		"n_distinct_negotiated_rates": 5
+	},
+	{
+		"geo_key": "14380",
+		"geo_name": "Boone, NC",
+		"n_facility_name": 2,
+		"n_billing_code_type_label": 7,
+		"n_carrier_plan_name": 3,
+		"n_distinct_negotiated_rates": 26
+	},
+	{
+		"geo_key": "35900",
+		"geo_name": "North Wilkesboro, NC",
+		"n_facility_name": 2,
+		"n_billing_code_type_label": 7,
+		"n_carrier_plan_name": 3,
+		"n_distinct_negotiated_rates": 25
+	},
+	{
+		"geo_key": "32000",
+		"geo_name": "Marion, NC",
+		"n_facility_name": 2,
+		"n_billing_code_type_label": 2,
+		"n_carrier_plan_name": 1,
+		"n_distinct_negotiated_rates": 2
+	},
+	{
+		"geo_key": "25780",
+		"geo_name": "Henderson, NC",
+		"n_facility_name": 1,
+		"n_billing_code_type_label": 7,
+		"n_carrier_plan_name": 2,
+		"n_distinct_negotiated_rates": 8
+	},
+	{
+		"geo_key": "29900",
+		"geo_name": "Laurinburg, NC",
+		"n_facility_name": 1,
+		"n_billing_code_type_label": 6,
+		"n_carrier_plan_name": 1,
+		"n_distinct_negotiated_rates": 21
+	}
+]

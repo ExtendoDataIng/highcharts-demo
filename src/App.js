@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Highcharts from 'highcharts/highmaps';
-import mapData from './topo.json';
-import countyUnemploymentData from './demo-geodata-nc-counties.json';
+import mapData from './topo_cbsa.json';
+import countyUnemploymentData from './demo-geodata-nc-cbsa.json';
 
 const MapChart = () => {
   const [mapOption, setMapOption] = useState('US_map');
@@ -11,7 +11,7 @@ const MapChart = () => {
       let filteredMapData;
 
       if (mapOption === 'US_map') {
-        // Mostrar todo el mapa y colorear solo TX y NC
+        // Mostrar el mapa y colorear solo TX y NC
         filteredMapData = {
           ...mapData,
           objects: {
@@ -19,12 +19,6 @@ const MapChart = () => {
             default: {
               ...mapData.objects.default,
               geometries: mapData.objects.default.geometries.map((g) => {
-                const hcKey = g.properties['hc-key'];
-                if (hcKey && hcKey.includes('-')) {
-                  const stateCode = hcKey.split('-')[1].toUpperCase();
-                  if (stateCode === 'TX' || stateCode === 'NC') {
-                  }
-                }
                 return g;
               }),
             },
@@ -60,14 +54,25 @@ const MapChart = () => {
         });
       }
 
+      // const filteredData = countyUnemploymentData.filter((data) => {
+      //   const upperCaseCode = data.geo_key.toUpperCase();
+
+      //   if (mapOption === 'US_map') {
+      //     const stateCodesToInclude = ['TX', 'NC'];
+      //     return stateCodesToInclude.some((geo_key) => upperCaseCode.includes(`-${geo_key}-`));
+      //   } else {
+      //     return upperCaseCode.includes(`-${mapOption}-`);
+      //   }
+      // });
+
       const filteredData = countyUnemploymentData.filter((data) => {
-        const upperCaseCode = data.geo_key.toUpperCase();
+        const upperCaseCode = data.geo_name.toUpperCase();
 
         if (mapOption === 'US_map') {
           const stateCodesToInclude = ['TX', 'NC'];
-          return stateCodesToInclude.some((geo_key) => upperCaseCode.includes(`-${geo_key}-`));
+          return stateCodesToInclude.some((geo_name) => upperCaseCode.includes(`${geo_name}`));
         } else {
-          return upperCaseCode.includes(`-${mapOption}-`);
+          return upperCaseCode.includes(`${mapOption}`);
         }
       });
 
@@ -77,7 +82,7 @@ const MapChart = () => {
           height: '30%',
         },
         title: {
-          text: `Unemployment rates - ${mapOption}`,
+          text: `Number of facilities - ${mapOption}`,
           align: 'left',
         },
         accessibility: {
@@ -117,9 +122,14 @@ const MapChart = () => {
         },
         series: [
           {
-            data: filteredData,
-            joinBy: ['hc-key', 'geo_key'],
-            name: 'Unemployment rate',
+            // data: filteredData,
+            data: filteredData.map(item => ({
+              ...item,
+              value: item.n_facility_name  // Mapea 'n_facility_name' a 'value'
+            })),
+            joinBy: ['GEOID', 'geo_key'],
+            // joinBy: ['hc-key', 'geo_key'],
+            name: 'Number of facilities',
             tooltip: {
               valueSuffix: ' facilities',
             },
