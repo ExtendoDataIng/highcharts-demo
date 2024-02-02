@@ -122,7 +122,6 @@ const MapChart = () => {
         },
         series: [
           {
-            // data: filteredData,
             data: filteredData.map(item => ({
               ...item,
               value: item.n_facility_name  // Mapea 'n_facility_name' a 'value'
@@ -131,7 +130,7 @@ const MapChart = () => {
             // joinBy: ['hc-key', 'geo_key'],
             name: 'Number of facilities',
             tooltip: {
-              valueSuffix: ' facilities',
+              pointFormat: '<b>{point.name}</b><br/>- Number of facilities: {point.n_facility_name}<br/>- Number of carrier plan names: {point.n_carrier_plan_name}<br/>- Number of billing codes: {point.n_billing_code_type_label}',
             },
             borderWidth: 0.5,
             shadow: false,
