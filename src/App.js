@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Highcharts from "highcharts";
 import HighchartsMore from "highcharts/highcharts-more";
 import HighchartsData from "highcharts/modules/data";
-import processDensity from "./processDensity";
+import processDensity from "./processDensity"; // Ajusta la ruta según la ubicación de tu archivo processDensity.js
+//
 
 // Inicializa los módulos
 HighchartsMore(Highcharts);
 HighchartsData(Highcharts);
 
 const App = () => {
-  const [statsContent, setStatsContent] = useState(""); // Estado para las estadísticas
-
   useEffect(() => {
     const discipline = [
       "triathlon",
@@ -19,7 +18,7 @@ const App = () => {
       "rowing",
       "handball",
       "cycling",
-      "gymnastics",
+      "gymnastics"
     ];
 
     const fetchData = async () => {
@@ -29,6 +28,7 @@ const App = () => {
         );
         const dataJson = await response.json();
 
+        let redrawing = false;
         let dataArray = discipline.map(() => []);
 
         dataJson.forEach((e) => {
@@ -43,7 +43,12 @@ const App = () => {
           precision = 0.00000000001,
           width = 15;
 
-        let data = processDensity(step, precision, width, ...dataArray);
+        let data = processDensity(
+          step,
+          precision,
+          width,
+          ...dataArray
+        );
 
         let chartsNbr = data.results.length;
         let xi = data.xiData;
@@ -56,40 +61,62 @@ const App = () => {
           series.push({
             data: dataSeries[i],
             name: discipline[i],
-            zIndex: chartsNbr - i,
-            stats: data.stat[i], // Añadir estadísticas a cada serie
+            zIndex: chartsNbr - i
           });
         });
 
-        // Configuración del gráfico
+        console.log(dataSeries)
+        // console.log(series)
+
         Highcharts.chart("container", {
           chart: {
             type: "areasplinerange",
             animation: true,
+            events: {
+              render() {
+                if (!redrawing) {
+                  redrawing = true;
+
+                  this.series.forEach((s) => {
+                    s.update({
+                      fillColor: {
+                        linearGradient: [0, 0, this.plotWidth, 0],
+                        stops: [
+                          [0, Highcharts.color("yellow").setOpacity(0).get("rgba")],
+                          [0.25, "#FFA500"], //orange
+                          [0.5, "#FF0033"], //red
+                          [0.75, "#7A378B"] //purple
+                        ]
+                      }
+                    });
+                  });
+                  redrawing = false;
+                }
+              }
+            }
           },
           title: {
-            text: "The 2012 Olympic male athletes weight",
+            text: "The 2012 Olympic male athletes weight"
           },
           xAxis: {
-            labels: { format: "{value} kg" },
+            labels: { format: "{value} kg" }
           },
           yAxis: {
             title: { text: null },
             categories: discipline,
-            min: 0,
-            max: chartsNbr - 1,
+            max: chartsNbr,
             labels: {
               formatter: function () {
                 if (this.pos < chartsNbr) return this.value;
               },
               style: {
                 textTransform: "capitalize",
-                fontSize: "9px",
-              },
+                fontSize: "9px"
+              }
             },
             startOnTick: true,
             gridLineWidth: 1,
-            tickmarkPlacement: "on",
+            tickmarkPlacement: "on"
           },
           tooltip: {
             useHTML: true,
@@ -97,112 +124,44 @@ const App = () => {
             crosshairs: true,
             valueDecimals: 3,
             headerFormat: null,
-            pointFormat: "<b>{series.name}</b>: {point.x} kg <br/>",
+            pointFormatter: function() {
+              return `<b>${this.series.name}</b>: ${this.x} kg, Frequency: ${this.frequency} <br/>`;
+            },
+            footerFormat: null
           },
           plotOptions: {
             areasplinerange: {
               marker: {
-                enabled: false,
+                enabled: false
               },
               states: {
                 hover: {
-                  enabled: false,
-                },
+                  enabled: false
+                }
               },
               pointStart: xi[0],
-            },
+              animation: {
+                duration: 0
+              },
+              fillColor: "",
+              lineWidth: 1,
+              color: "black"
+            }
           },
           legend: {
-            enabled: false,
+            enabled: false
           },
-          series: series,
-          // Incluye una tabla debajo del gráfico
-          annotations: [{
-            labels: [{
-              point: {
-                xAxis: 0,
-                yAxis: chartsNbr,
-                x: 0,
-                y: 0
-              },
-              text: "Métricas",
-              backgroundColor: 'white',
-              align: 'center',
-              verticalAlign: 'middle'
-            }],
-            labelOptions: {
-              backgroundColor: 'white'
-            }
-          }],
+          series: series
         });
-
-        // Mostrar todas las métricas en una tabla
-        const allStatsContent = (
-          <table>
-            <thead>
-              <tr>
-                <th>Métricas</th>
-                {discipline.map((discipline) => (
-                  <th key={discipline}>{discipline}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><b>Min</b></td>
-                {data.stat.map((stats) => (
-                  <td key={stats[0]}>{Highcharts.numberFormat(stats[0], 2)} kg</td>
-                ))}
-              </tr>
-              <tr>
-                <td><b>Q1</b></td>
-                {data.stat.map((stats) => (
-                  <td key={stats[1]}>{Highcharts.numberFormat(stats[1], 2)} kg</td>
-                ))}
-              </tr>
-              <tr>
-                <td><b>Median</b></td>
-                {data.stat.map((stats) => (
-                  <td key={stats[2]}>{Highcharts.numberFormat(stats[2], 3)} kg</td>
-                ))}
-              </tr>
-              <tr>
-                <td><b>Q3</b></td>
-                {data.stat.map((stats) => (
-                  <td key={stats[3]}>{Highcharts.numberFormat(stats[3], 2)} kg</td>
-                ))}
-              </tr>
-              <tr>
-                <td><b>Max</b></td>
-                {data.stat.map((stats) => (
-                  <td key={stats[4]}>{Highcharts.numberFormat(stats[4], 2)} kg</td>
-                ))}
-              </tr>
-              <tr>
-                <td><b>Geomean</b></td>
-                {data.stat.map((stats) => (
-                  <td key={stats[5]}>{Highcharts.numberFormat(stats[5], 2)} kg</td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        );
-
-        setStatsContent(allStatsContent);
       } catch (error) {
-        console.error("Error fetching data:", error.message);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
   }, []);
 
-  return (
-    <div>
-      <div id="container" />
-      <div>{statsContent}</div>
-    </div>
-  );
+  return <div id="container" />;
 };
 
 export default App;
