@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import "./style.css";
 import Dashboard from "./Dashboard";
 
@@ -52,10 +52,25 @@ const medicare_rate = data_5.slice(1).map(row => calculateAverage(row));
 export default function App() {
   const [currentData, setCurrentData] = useState(data);
   const [subtitle, setSubtitle] = useState("avg_rate");
+  const [newRowName, setNewRowName] = useState(""); // Agregado el estado para el nombre de la fila
 
   const handleButtonClick = (newSubtitle, newData) => {
     setCurrentData(newData);
     setSubtitle(newSubtitle);
+  };
+
+  const addRow = () => {
+    // Valor inicial de la nueva fila
+    const initialValue = 0;
+
+    // Crear una nueva fila con el valor inicial y el nombre proporcionado
+    const newRow = [newRowName, initialValue, initialValue, initialValue, initialValue, initialValue, initialValue, initialValue, initialValue];
+
+    // Añadir la nueva fila al conjunto de datos actual
+    const newData = [...currentData, newRow];
+
+    setCurrentData(newData);
+    setNewRowName(""); // Limpiar el nombre después de agregar la fila
   };
 
   const configDynamic = {
@@ -81,6 +96,13 @@ export default function App() {
                   id: "dashboard-col-1",
                 },
               ],
+            },
+            {
+              "cells": [
+                {
+                  "id": "dashboard-col-2"
+                }
+              ]
             },
           ],
         },
@@ -155,8 +177,23 @@ export default function App() {
           ]
         },
       },
+      {
+        "cell": "dashboard-col-2",
+        "connector": {
+          "id": "connector-1"
+        },
+        "type": "DataGrid",
+        "sync": {
+          "highlight": true,
+          "visibility": true
+        }
+      },
     ],
   };
+
+  useEffect(() => {
+    // No estás utilizando 'originalData', puedes eliminarla si no la necesitas
+  }, [currentData]);
 
   return (
     <div>
@@ -164,6 +201,16 @@ export default function App() {
       <button onClick={() => handleButtonClick("moda_rate", data_2)}>moda_rate</button>
       <button onClick={() => handleButtonClick("a_rate", data_3)}>a_rate</button>
       <button onClick={() => handleButtonClick("b_rate", data_4)}>b_rate</button>
+
+      {/* Nuevo input para el nombre de la fila */}
+      <input
+        type="text"
+        placeholder="Nombre de la fila"
+        value={newRowName}
+        onChange={(e) => setNewRowName(e.target.value)}
+      />
+      <button onClick={addRow}>Añadir Fila</button>
+      
       <Dashboard config={configDynamic} />
     </div>
   );
