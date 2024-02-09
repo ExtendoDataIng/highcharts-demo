@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Highcharts Demo</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/stock.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/map.js"></script>
+    <script src="https://code.highcharts.com/modules/gantt.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/parallel-coordinates.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/modules/annotations-advanced.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/draggable-points.js"></script>
+    <script src="https://code.highcharts.com/modules/static-scale.js"></script>
+    <script src="https://code.highcharts.com/modules/broken-axis.js"></script>
+    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/tilemap.js"></script>
+    <script src="https://code.highcharts.com/modules/timeline.js"></script>
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+    <script src="https://code.highcharts.com/modules/treegraph.js"></script>
+    <script src="https://code.highcharts.com/modules/item-series.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/modules/histogram-bellcurve.js"></script>
+    <script src="https://code.highcharts.com/modules/bullet.js"></script>
+    <script src="https://code.highcharts.com/modules/funnel.js"></script>
+    <script src="https://code.highcharts.com/modules/funnel3d.js"></script>
+    <script src="https://code.highcharts.com/modules/pyramid3d.js"></script>
+    <script src="https://code.highcharts.com/modules/networkgraph.js"></script>
+    <script src="https://code.highcharts.com/modules/pareto.js"></script>
+    <script src="https://code.highcharts.com/modules/pattern-fill.js"></script>
+    <script src="https://code.highcharts.com/modules/price-indicator.js"></script>
+    <script src="https://code.highcharts.com/modules/sankey.js"></script>
+    <script src="https://code.highcharts.com/modules/arc-diagram.js"></script>
+    <script src="https://code.highcharts.com/modules/dependency-wheel.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <script src="https://code.highcharts.com/modules/sonification.js"></script>
+    <script src="https://code.highcharts.com/modules/stock-tools.js"></script>
+    <script src="https://code.highcharts.com/modules/streamgraph.js"></script>
+    <script src="https://code.highcharts.com/modules/sunburst.js"></script>
+    <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
+    <script src="https://code.highcharts.com/modules/variwide.js"></script>
+    <script src="https://code.highcharts.com/modules/vector.js"></script>
+    <script src="https://code.highcharts.com/modules/venn.js"></script>
+    <script src="https://code.highcharts.com/modules/windbarb.js"></script>
+    <script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+    <script src="https://code.highcharts.com/modules/xrange.js"></script>
+    <script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
+    <script src="https://code.highcharts.com/modules/drag-panes.js"></script>
+    <script src="https://code.highcharts.com/modules/debugger.js"></script>
+    <script src="https://code.highcharts.com/modules/dumbbell.js"></script>
+    <script src="https://code.highcharts.com/modules/lollipop.js"></script>
+    <script src="https://code.highcharts.com/modules/cylinder.js"></script>
+    <script src="https://code.highcharts.com/modules/organization.js"></script>
+    <script src="https://code.highcharts.com/modules/dotplot.js"></script>
+    <script src="https://code.highcharts.com/modules/marker-clusters.js"></script>
+    <script src="https://code.highcharts.com/modules/hollowcandlestick.js"></script>
+    <script src="https://code.highcharts.com/modules/heikinashi.js"></script>
+  </head>
+  <body>
+    <div id="container"></div>
+    <div id="dataGrid"></div>
+    <script>
+      // Custom variable to store initial series data
+      var initialSeriesData = [
+        {
+          name: "John",
+          data: [5, 3, 4, 7],
+        },
+        {
+          name: "Jane",
+          data: [2, 5, 6, 2],
+        },
+      ];
+
+      // Initialize the chart with initial series data
+      var chart = Highcharts.chart("container", {
+        chart: {
+          type: "bar",
+        },
+        title: {
+          text: "Example Bar Chart with Initial Series Data",
+        },
+        xAxis: {
+          categories: ["Apples", "Bananas", "Oranges", "Grapes"],
+        },
+        yAxis: {
+          title: {
+            text: "Fruit Count",
+          },
+        },
+        series: initialSeriesData,
+      });
+
+      // Create a Highcharts table chart for the data grid
+      // var dataGrid = Highcharts.chart("dataGrid", {
+      //   data: {
+      //     table: "container",
+      //   },
+      //   chart: {
+      //     type: "DataGrid",
+      //   },
+      //   title: {
+      //     text: "Data Grid",
+      //   },
+      // });
+
+      // Function to update the chart with modified data
+      // This function do not render the chart after updating the data
+      function updateChartData(newData) {
+        chart.update({
+          series: newData,
+        });
+      }
+
+      // Function to update the name of a series by index
+      function updateSeriesName(seriesIndex, newName) {
+        var chartSeries = chart.series[seriesIndex];
+        console.log("Updating: " + chartSeries.name);
+        if (chartSeries) {
+          chartSeries.update({
+            name: newName,
+          });
+        }
+      }
+
+      // Function to remove a specific series by index
+      function removeSeriesByIndex(seriesIndex) {
+        var chartSeries = chart.series[seriesIndex];
+        console.log("Removing: " + chartSeries.name);
+        if (chartSeries) {
+          chartSeries.remove();
+        }
+      }
+
+      // Function to log the names of each chart series
+      function logSeriesNames() {
+        chart.series.forEach(function (series) {
+          console.log(series.name);
+        });
+      }
+
+      // Function to log the data for each chart series
+      function logSeriesData() {
+        chart.series.forEach(function (series) {
+          console.log("Series Name: " + series.name);
+          console.log("Data Points:");
+          series.data.forEach(function (point) {
+            console.log("x: " + point.category + ", y: " + point.y);
+          });
+          console.log("--------------");
+        });
+      }
+
+      // Example of updating the chart with modified data
+      var modifiedSeriesData = initialSeriesData.map(function (series) {
+        return {
+          name: series.name,
+          data: series.data.map(function (value) {
+            return value * 2; // Modify the data as needed
+          }),
+        };
+      });
+
+      // Testing the functions with the modified data
+      logSeriesNames();
+      updateSeriesName(1, "Paquita");
+
+      // New series data to be added
+      var newSeriesData = {
+        name: "Joe",
+        data: [1, 4, 3, 5],
+      };
+
+      // Add the new series to the chart
+      chart.addSeries(newSeriesData);
+      logSeriesNames();
+
+      // Example: Remove the second series (index 1) from the chart
+      removeSeriesByIndex(1);
+
+      //logSeriesNames()
+      logSeriesData();
+    </script>
+  </body>
+</html>
