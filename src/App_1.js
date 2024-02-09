@@ -3,7 +3,6 @@ import Highcharts from "highcharts";
 import HighchartsMore from "highcharts/highcharts-more";
 import HighchartsData from "highcharts/modules/data";
 import processDensity from "./processDensity"; // Ajusta la ruta según la ubicación de tu archivo processDensity.js
-import data_array_fake from "./response"
 //
 
 // Inicializa los módulos
@@ -18,34 +17,29 @@ const App = () => {
       "fencing",
       "rowing",
       "handball",
-      "cycling"
+      "cycling",
+      "gymnastics"
     ];
 
     const fetchData = async () => {
       try {
-        // const response = await fetch(
-        //   "https://raw.githubusercontent.com/mekhatria/demo_highcharts/master/densityMaleData.json?callback=?"
-        // );
-        // const dataJson = await response.json();
+        const response = await fetch(
+          "https://raw.githubusercontent.com/mekhatria/demo_highcharts/master/densityMaleData.json?callback=?"
+        );
+        const dataJson = await response.json();
 
         let redrawing = false;
         let dataArray = discipline.map(() => []);
 
-        // dataJson.forEach((e) => {
-        //   discipline.forEach((key, value) => {
-        //     if (e.sport === key) {
-        //       dataArray[value].push(e.weight);
-        //     }
-        //   });
-        // });
+        dataJson.forEach((e) => {
+          discipline.forEach((key, value) => {
+            if (e.sport === key) {
+              dataArray[value].push(e.weight);
+            }
+          });
+        });
 
-        const dataArrayFake = data_array_fake
-
-        dataArray = dataArrayFake
-
-        // console.log(dataArray)
-
-        let step = 2,
+        let step = 1,
           precision = 0.00000000001,
           width = 15;
 
@@ -60,18 +54,10 @@ const App = () => {
         let xi = data.xiData;
 
         let dataSeries = [],
-          frequencyMap = [],
           series = [];
-          
         data.results.forEach((e, i) => {
-          // console.log(e)
           dataSeries.push([]);
           dataSeries[i] = e;
-
-          if (!frequencyMap[discipline[i]]) frequencyMap[discipline[i]] = [];
-          e.forEach((e) => {
-            frequencyMap[discipline[i]][e[0].toString()] = e[3];
-          });
           series.push({
             data: dataSeries[i],
             name: discipline[i],
@@ -79,9 +65,8 @@ const App = () => {
           });
         });
 
-        // // console.log(dataSeries)
-        // console.log(series)
-        console.log(frequencyMap)
+        // console.log(dataSeries)
+        console.log(series)
 
         Highcharts.chart("container", {
           chart: {
@@ -140,8 +125,7 @@ const App = () => {
             valueDecimals: 3,
             headerFormat: null,
             pointFormatter: function() {
-              // console.log(this);
-              return `<b>${this.series.name}</b>: ${this.x} kg, Frequency: ${frequencyMap[this.series.name][this.x]} <br/>`;
+              return `<b>${this.series.name}</b>: ${this.x} kg, Frequency: ${this.frequency} <br/>`;
             },
             footerFormat: null
           },
