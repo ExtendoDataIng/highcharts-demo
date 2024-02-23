@@ -72,6 +72,34 @@ export default function App() {
               name: "HCPCS J2357",
               data: [0.41, -0.66],
             },
+            {
+              name: "HCPCS J23587",
+              data: [0.10, -0.66],
+            },
+            {
+              name: "HCPCS J27",
+              data: [.80, 0.3],
+            },
+            {
+              name: "HCPCS J27667",
+              data: [0.56, -0.65],
+            },
+            {
+              name: "HCPCS J27667",
+              data: [0.40, -0.1],
+            },
+            {
+              name: "HCPCS J27667",
+              data: [-0.23, -0.2],
+            },
+            {
+              name: "HCPCS J27667",
+              data: [0.31, -0.30],
+            },
+            {
+              name: "HCPCS J27667",
+              data: [0.56, -0.65],
+            },
           ],
         },
       },
