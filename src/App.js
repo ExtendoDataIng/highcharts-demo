@@ -3,7 +3,6 @@ import "./style.css";
 import Dashboard from "./Dashboard";
 
 export default function App() {
-
   const configDynamic = {
     dataPool: {
       connectors: [
@@ -36,22 +35,26 @@ export default function App() {
         connector: {
           id: "connector-1",
         },
+        sync: null,
         chartOptions: {
           chart: {
+            animation: true,
             type: "column",
           },
           title: {
-            text: "Column chart with negative values",
+            text: "Bar chart z-score comparison",
           },
           xAxis: {
-            categories: ["Apples", "Oranges", "Pears"]
+            categories: ["Aetna Choice POS", "BCBS NC Blue HPN Atrium"],
           },
           yAxis: {
             plotLines: [
               {
                 value: 0,
-                color: "black",
-                width: 100,
+                color: 'green', // Puedes dejar esta configuración aquí también para asegurarte
+                width: 20,
+                zIndex: 1,
+                dashStyle: 'Solid',
               },
             ],
           },
@@ -61,13 +64,13 @@ export default function App() {
           plotOptions: {
             column: {
               borderRadius: "25%",
-              pointWidth: 50, // Ajusta este valor según tus necesidades
+              pointWidth: 50,
             },
           },
           series: [
             {
-              name: "Joe",
-              data: [-3, 5, 2],
+              name: "HCPCS J2357",
+              data: [0.41, -0.66],
             },
           ],
         },
