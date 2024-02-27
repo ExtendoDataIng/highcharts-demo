@@ -5,11 +5,12 @@
 
 .highcharts-plot-line {
   /* stroke-dasharray: 20px; */
-  stroke: var(--highcharts-color-99);
+  stroke: var(--highcharts-color-5);
 }
 
+
 .highcharts-plot-line-label {
-  fill: var(--highcharts-color-99);
+  fill: var(--highcharts-color-5);
 }
 
 .highcharts-light {
