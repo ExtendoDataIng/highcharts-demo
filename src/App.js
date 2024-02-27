@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Highcharts from 'highcharts/highmaps';
 import mapData from './topo_cbsa.json';
 import countyUnemploymentData from './demo-geodata-nc-cbsa.json';
+// import './style_test.css'
+// import './style.css'
 
 const MapChart = () => {
   const [mapOption, setMapOption] = useState('US_map');
