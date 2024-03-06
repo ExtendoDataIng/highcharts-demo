@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Highcharts from 'highcharts/highmaps';
-import mapData from './topo.json';
-import countyUnemploymentData from './demo-geodata-nc-counties.json';
+import mapData from './topo_cbsa.json';
+import countyUnemploymentData from './demo-geodata-nc-cbsa.json';
 
 const MapChart = () => {
   const [mapOption, setMapOption] = useState('US_map');
-  const [metricOption, setMetricOption] = useState('mean');
+  const [metricOption, setMetricOption] = useState('n_facility_name');
 
   useEffect(() => {
     const processData = () => {
@@ -51,36 +51,36 @@ const MapChart = () => {
         });
       }
 
-      const filteredData = countyUnemploymentData.filter((data) => {
-        const upperCaseCode = data.geo_key.toUpperCase();
-
-        if (mapOption === 'US_map') {
-          const stateCodesToInclude = ['TX', 'NC'];
-          return stateCodesToInclude.some((geo_key) => upperCaseCode.includes(`-${geo_key}-`));
-        } else {
-          return upperCaseCode.includes(`-${mapOption}-`);
-        }
-      });
-
       // const filteredData = countyUnemploymentData.filter((data) => {
-      //   const upperCaseCode = data.geo_name.toUpperCase();
+      //   const upperCaseCode = data.geo_key.toUpperCase();
 
       //   if (mapOption === 'US_map') {
       //     const stateCodesToInclude = ['TX', 'NC'];
-      //     return stateCodesToInclude.some((geo_name) => upperCaseCode.includes(`${geo_name}`));
+      //     return stateCodesToInclude.some((geo_key) => upperCaseCode.includes(`-${geo_key}-`));
       //   } else {
-      //     return upperCaseCode.includes(`${mapOption}`);
+      //     return upperCaseCode.includes(`-${mapOption}-`);
       //   }
       // });
+
+      const filteredData = countyUnemploymentData.filter((data) => {
+        const upperCaseCode = data.geo_name.toUpperCase();
+
+        if (mapOption === 'US_map') {
+          const stateCodesToInclude = ['TX', 'NC'];
+          return stateCodesToInclude.some((geo_name) => upperCaseCode.includes(`${geo_name}`));
+        } else {
+          return upperCaseCode.includes(`${mapOption}`);
+        }
+      });
 
       const values = filteredData.map((item) => item[metricOption]);
       const minValue = Math.min(...values);
       const maxValue = Math.max(...values);
 
       const metricNames = {
-        mean: 'Mean',
-        min: 'Min',
-        max: 'Max',
+        n_facility_name: 'Number of Facilities',
+        n_billing_code_type_label: 'Number of Billing Codes',
+        n_carrier_plan_name: 'Number of Carrier Plan Names',
       };
 
       Highcharts.mapChart('container', {
@@ -133,10 +133,10 @@ const MapChart = () => {
               ...item,
               value: item[metricOption],
             })),
-            joinBy: ['hc-key','geo_key'],
+            joinBy: ['GEOID', 'geo_key'],
             name: metricOption,
             tooltip: {
-              pointFormat: '<b>{point.name}</b><br/>- Mean: {point.mean}<br/>- Max: {point.max}<br/>- Min: {point.min}'
+              pointFormat: '<b>{point.name}</b><br/>- Number of facilities: {point.n_facility_name}<br/>- Number of carrier plan names: {point.n_carrier_plan_name}<br/>- Number of billing codes: {point.n_billing_code_type_label}'
             },
             borderWidth: 0.5,
             shadow: false,
@@ -181,9 +181,9 @@ const MapChart = () => {
 
       <label htmlFor="metricOption">Select Metric:</label>
       <select id="metricOption" value={metricOption} onChange={handleMetricOptionChange}>
-        <option value="mean">Mean</option>
-        <option value="min">Min</option>
-        <option value="max">Max</option>
+        <option value="n_facility_name">Number of Facilities</option>
+        <option value="n_billing_code_type_label">Number of Billing Codes</option>
+        <option value="n_carrier_plan_name">Number of Carrier Plan Names</option>
       </select>
 
       <div id="container" />

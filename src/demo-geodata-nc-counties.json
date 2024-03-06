@@ -1,242 +1,135 @@
 [
-		{
-			"geo_key": "us-nc-001",
-			"geo_name": "Alamance County",
-			"n_facility_name": 15,
-			"n_billing_code_type_label": 8,
-			"n_carrier_plan_name": 3,
-			"n_distinct_negotiated_rates": 55
-		},
-		{
-			"geo_key": "us-nc-003",
-			"geo_name": "Alexander County",
-			"n_facility_name": 1,
-			"n_billing_code_type_label": 3,
-			"n_carrier_plan_name": 3,
-			"n_distinct_negotiated_rates": 6
-		},
-		{
-			"geo_key": "us-nc-021",
-			"geo_name": "Buncombe County",
-			"n_facility_name": 7,
-			"n_billing_code_type_label": 8,
-			"n_carrier_plan_name": 2,
-			"n_distinct_negotiated_rates": 16
-		},
-		{
-			"geo_key": "us-nc-023",
-			"geo_name": "Burke County",
-			"n_facility_name": 4,
-			"n_billing_code_type_label": 7,
-			"n_carrier_plan_name": 3,
-			"n_distinct_negotiated_rates": 22
-		},
-		{
-			"geo_key": "us-nc-027",
-			"geo_name": "Caldwell County",
-			"n_facility_name": 5,
-			"n_billing_code_type_label": 8,
-			"n_carrier_plan_name": 4,
-			"n_distinct_negotiated_rates": 31
-		},
-		{
-			"geo_key": "us-nc-033",
-			"geo_name": "Caswell County",
-			"n_facility_name": 1,
-			"n_billing_code_type_label": 6,
-			"n_carrier_plan_name": 2,
-			"n_distinct_negotiated_rates": 19
-		},
-		{
-			"geo_key": "us-nc-037",
-			"geo_name": "Chatham County",
-			"n_facility_name": 11,
-			"n_billing_code_type_label": 8,
-			"n_carrier_plan_name": 3,
-			"n_distinct_negotiated_rates": 55
-		},
-		{
-			"geo_key": "us-nc-049",
-			"geo_name": "Craven County",
-			"n_facility_name": 2,
-			"n_billing_code_type_label": 5,
-			"n_carrier_plan_name": 1,
-			"n_distinct_negotiated_rates": 5
-		},
-		{
-			"geo_key": "us-nc-063",
-			"geo_name": "Durham County",
-			"n_facility_name": 49,
-			"n_billing_code_type_label": 8,
-			"n_carrier_plan_name": 3,
-			"n_distinct_negotiated_rates": 97
-		},
-		{
-			"geo_key": "us-nc-069",
-			"geo_name": "Franklin County",
-			"n_facility_name": 2,
-			"n_billing_code_type_label": 6,
-			"n_carrier_plan_name": 2,
-			"n_distinct_negotiated_rates": 16
-		},
-		{
-			"geo_key": "us-nc-077",
-			"geo_name": "Granville County",
-			"n_facility_name": 2,
-			"n_billing_code_type_label": 6,
-			"n_carrier_plan_name": 2,
-			"n_distinct_negotiated_rates": 16
-		},
-		{
-			"geo_key": "us-nc-079",
-			"geo_name": "Greene County",
-			"n_facility_name": 2,
-			"n_billing_code_type_label": 5,
-			"n_carrier_plan_name": 1,
-			"n_distinct_negotiated_rates": 5
-		},
-		{
-			"geo_key": "us-nc-081",
-			"geo_name": "Guilford County",
-			"n_facility_name": 12,
-			"n_billing_code_type_label": 6,
-			"n_carrier_plan_name": 2,
-			"n_distinct_negotiated_rates": 22
-		},
-		{
-			"geo_key": "us-nc-085",
-			"geo_name": "Harnett County",
-			"n_facility_name": 4,
-			"n_billing_code_type_label": 6,
-			"n_carrier_plan_name": 2,
-			"n_distinct_negotiated_rates": 16
-		},
-		{
-			"geo_key": "us-nc-089",
-			"geo_name": "Henderson County",
-			"n_facility_name": 4,
-			"n_billing_code_type_label": 8,
-			"n_carrier_plan_name": 2,
-			"n_distinct_negotiated_rates": 11
-		},
-		{
-			"geo_key": "us-nc-101",
-			"geo_name": "Johnston County",
-			"n_facility_name": 33,
-			"n_billing_code_type_label": 8,
-			"n_carrier_plan_name": 3,
-			"n_distinct_negotiated_rates": 64
-		},
-		{
-			"geo_key": "us-nc-103",
-			"geo_name": "Jones County",
-			"n_facility_name": 2,
-			"n_billing_code_type_label": 5,
-			"n_carrier_plan_name": 1,
-			"n_distinct_negotiated_rates": 5
-		},
-		{
-			"geo_key": "us-nc-107",
-			"geo_name": "Lenoir County",
-			"n_facility_name": 2,
-			"n_billing_code_type_label": 5,
-			"n_carrier_plan_name": 1,
-			"n_distinct_negotiated_rates": 5
-		},
-		{
-			"geo_key": "us-nc-111",
-			"geo_name": "McDowell County",
-			"n_facility_name": 2,
-			"n_billing_code_type_label": 2,
-			"n_carrier_plan_name": 1,
-			"n_distinct_negotiated_rates": 2
-		},
-		{
-			"geo_key": "us-nc-127",
-			"geo_name": "Nash County",
-			"n_facility_name": 6,
-			"n_billing_code_type_label": 8,
-			"n_carrier_plan_name": 3,
-			"n_distinct_negotiated_rates": 21
-		},
-		{
-			"geo_key": "us-nc-135",
-			"geo_name": "Orange County",
-			"n_facility_name": 26,
-			"n_billing_code_type_label": 8,
-			"n_carrier_plan_name": 4,
-			"n_distinct_negotiated_rates": 100
-		},
-		{
-			"geo_key": "us-nc-145",
-			"geo_name": "Person County",
-			"n_facility_name": 1,
-			"n_billing_code_type_label": 6,
-			"n_carrier_plan_name": 3,
-			"n_distinct_negotiated_rates": 7
-		},
-		{
-			"geo_key": "us-nc-151",
-			"geo_name": "Randolph County",
-			"n_facility_name": 2,
-			"n_billing_code_type_label": 8,
-			"n_carrier_plan_name": 3,
-			"n_distinct_negotiated_rates": 21
-		},
-		{
-			"geo_key": "us-nc-155",
-			"geo_name": "Robeson County",
-			"n_facility_name": 6,
-			"n_billing_code_type_label": 8,
-			"n_carrier_plan_name": 3,
-			"n_distinct_negotiated_rates": 43
-		},
-		{
-			"geo_key": "us-nc-157",
-			"geo_name": "Rockingham County",
-			"n_facility_name": 3,
-			"n_billing_code_type_label": 8,
-			"n_carrier_plan_name": 3,
-			"n_distinct_negotiated_rates": 15
-		},
-		{
-			"geo_key": "us-nc-165",
-			"geo_name": "Scotland County",
-			"n_facility_name": 1,
-			"n_billing_code_type_label": 6,
-			"n_carrier_plan_name": 1,
-			"n_distinct_negotiated_rates": 21
-		},
-		{
-			"geo_key": "us-nc-181",
-			"geo_name": "Vance County",
-			"n_facility_name": 1,
-			"n_billing_code_type_label": 7,
-			"n_carrier_plan_name": 2,
-			"n_distinct_negotiated_rates": 8
-		},
-		{
-			"geo_key": "us-nc-183",
-			"geo_name": "Wake County",
-			"n_facility_name": 106,
-			"n_billing_code_type_label": 8,
-			"n_carrier_plan_name": 3,
-			"n_distinct_negotiated_rates": 180
-		},
-		{
-			"geo_key": "us-nc-189",
-			"geo_name": "Watauga County",
-			"n_facility_name": 2,
-			"n_billing_code_type_label": 7,
-			"n_carrier_plan_name": 3,
-			"n_distinct_negotiated_rates": 24
-		},
-		{
-			"geo_key": "us-nc-193",
-			"geo_name": "Wilkes County",
-			"n_facility_name": 2,
-			"n_billing_code_type_label": 7,
-			"n_carrier_plan_name": 3,
-			"n_distinct_negotiated_rates": 24
-		}
+	{
+	"geo_key": "us-nc-155",
+	"geo_name": "Robeson County",
+	"mean": 105143,
+	"min": 24116,
+	"max": 366337
+	},
+	{
+	"geo_key": "us-nc-037",
+	"geo_name": "Chatham County",
+	"mean": 88951,
+	"min": 17432,
+	"max": 484729
+	},
+	{
+	"geo_key": "us-nc-001",
+	"geo_name": "Alamance County",
+	"mean": 83527,
+	"min": 17655,
+	"max": 375867
+	},
+	{
+	"geo_key": "us-nc-127",
+	"geo_name": "Nash County",
+	"mean": 70268,
+	"min": 19792,
+	"max": 272508
+	},
+	{
+	"geo_key": "us-nc-135",
+	"geo_name": "Orange County",
+	"mean": 70115,
+	"min": 7817,
+	"max": 287618
+	},
+	{
+	"geo_key": "us-nc-101",
+	"geo_name": "Johnston County",
+	"mean": 67275,
+	"min": 12717,
+	"max": 272281
+	},
+	{
+	"geo_key": "us-nc-021",
+	"geo_name": "Buncombe County",
+	"mean": 66769,
+	"min": 14201,
+	"max": 390084
+	},
+	{
+	"geo_key": "us-nc-151",
+	"geo_name": "Randolph County",
+	"mean": 61641,
+	"min": 6474,
+	"max": 421784
+	},
+	{
+	"geo_key": "us-nc-183",
+	"geo_name": "Wake County",
+	"mean": 59052,
+	"min": 4550,
+	"max": 281943
+	},
+	{
+	"geo_key": "us-nc-089",
+	"geo_name": "Henderson County",
+	"mean": 57524,
+	"min": 17062,
+	"max": 231412
+	},
+	{
+	"geo_key": "us-nc-023",
+	"geo_name": "Burke County",
+	"mean": 55984,
+	"min": 11384,
+	"max": 375506
+	},
+	{
+	"geo_key": "us-nc-193",
+	"geo_name": "Wilkes County",
+	"mean": 55635,
+	"min": 337,
+	"max": 336495
+	},
+	{
+	"geo_key": "us-nc-027",
+	"geo_name": "Caldwell County",
+	"mean": 55497,
+	"min": 11384,
+	"max": 278905
+	},
+	{
+	"geo_key": "us-nc-189",
+	"geo_name": "Watauga County",
+	"mean": 55235,
+	"min": 11384,
+	"max": 283879
+	},
+	{
+	"geo_key": "us-nc-157",
+	"geo_name": "Rockingham County",
+	"mean": 53616,
+	"min": 14755,
+	"max": 381049
+	},
+	{
+	"geo_key": "us-nc-063",
+	"geo_name": "Durham County",
+	"mean": 48904,
+	"min": 4550,
+	"max": 287618
+	},
+	{
+	"geo_key": "us-nc-145",
+	"geo_name": "Person County",
+	"mean": 19870,
+	"min": 416,
+	"max": 177901
+	},
+	{
+	"geo_key": "us-nc-181",
+	"geo_name": "Vance County",
+	"mean": 12833,
+	"min": 416,
+	"max": 162772
+	},
+	{
+	"geo_key": "us-nc-077",
+	"geo_name": "Granville County",
+	"mean": 416,
+	"min": 416,
+	"max": 416
+	}
 	]
