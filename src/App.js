@@ -4,8 +4,8 @@ import HC_map from 'highcharts/modules/map';
 import HC_coloraxis from 'highcharts/modules/coloraxis';
 import HC_accessibility from 'highcharts/modules/accessibility';
 import HighchartsReact from 'highcharts-react-official';
-import europeTopo from './europe_topo.json';
-import airportsData from './airports.json';
+import ncTopo from './filtered-topo-nc.json';
+import airportsData from './nc_airports.json';
 import HC_markerClusters from 'highcharts/modules/marker-clusters';
 
 // Importar los módulos necesarios
@@ -14,17 +14,17 @@ HC_markerClusters(Highcharts);
 HC_coloraxis(Highcharts);
 HC_accessibility(Highcharts);
 
-const EuropeMap = () => {
+const NcMap = () => {
   const options = {
     chart: {
-      map: europeTopo,
+      map: ncTopo,
     },
     title: {
-      text: 'European Train Stations Near Airports',
+      text: 'North Carolina Counties with Airports',
       align: 'left',
     },
     subtitle: {
-      text: 'Source: <a href="https://github.com/trainline-eu/stations">github.com/trainline-eu/stations</a>',
+      text: 'Source: Airports data',
       align: 'left',
     },
     mapNavigation: {
@@ -38,8 +38,45 @@ const EuropeMap = () => {
       min: 0,
       max: 20,
     },
-    plotOptions: {
-      mappoint: {
+    series: [
+      {
+        type: 'map',
+        name: 'North Carolina',
+        borderColor: '#A0A0A0',
+        nullColor: 'rgba(177, 244, 177, 0.5)',
+        showInLegend: false,
+        data: ncTopo.objects.default.geometries.map((geo, index) => ({
+          key: geo.properties['hc-key'],
+          value: index // Puedes usar algún valor relevante en lugar del índice
+        })),
+        joinBy: 'key',
+        states: {
+          hover: {
+            color: '#EEDD66',
+          },
+        },
+        dataLabels: {
+          enabled: true,
+          format: '{point.name}',
+        },
+      },
+      {
+        type: 'mappoint',
+        name: 'Airports',
+        data: airportsData.map(airport => ({
+          name: airport.nombre,
+          lat: airport.latitud,
+          lon: airport.longitud,
+          country: airport.country,
+        })),
+        colorKey: 'clusterPointsAmount',
+        color: Highcharts.getOptions().colors[5],
+        marker: {
+          symbol: 'mapmarker',
+          radius: 8,
+          lineWidth: 1,
+          lineColor: '#ffffff',
+        },
         cluster: {
           enabled: true,
           allowOverlap: false,
@@ -57,27 +94,6 @@ const EuropeMap = () => {
             { from: 16, to: 20, marker: { radius: 19 } },
             { from: 21, to: 100, marker: { radius: 21 } },
           ],
-        },
-      },
-    },
-    series: [
-      {
-        name: 'Europe',
-        borderColor: '#A0A0A0',
-        nullColor: 'rgba(177, 244, 177, 0.5)',
-        showInLegend: false,
-      },
-      {
-        type: 'mappoint',
-        name: 'Cities',
-        data: airportsData,
-        colorKey: 'clusterPointsAmount',
-        color: Highcharts.getOptions().colors[5],
-        marker: {
-          symbol: 'mapmarker',
-          radius: 8,
-          lineWidth: 1,
-          lineColor: '#ffffff',
         },
         dataLabels: {
           enabled: true,
@@ -111,5 +127,4 @@ const EuropeMap = () => {
   );
 };
 
-export default EuropeMap;
-
+export default NcMap;

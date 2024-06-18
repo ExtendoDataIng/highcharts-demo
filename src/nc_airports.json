@@ -1,0 +1,128 @@
+[
+  {
+    "nombre": "Charlotte Douglas International Airport",
+    "latitud": 35.2138889,
+    "longitud": -80.9430556,
+    "country": "NC"
+  },
+  {
+    "nombre": "Raleigh-Durham International Airport",
+    "latitud": 35.8777778,
+    "longitud": -78.7875,
+    "country": "NC"
+  },
+  {
+    "nombre": "Raleigh-Durham International Airport",
+    "latitud": 35.8777778,
+    "longitud": -78.7875,
+    "country": "NC"
+  },
+  {
+    "nombre": "Piedmont Triad International Airport",
+    "latitud": 36.1005556,
+    "longitud": -79.9416667,
+    "country": "NC"
+  },
+  {
+    "nombre": "Asheville Regional Airport",
+    "latitud": 35.4361944,
+    "longitud": -82.5418056,
+    "country": "NC"
+  },
+  {
+    "nombre": "Wilmington International Airport",
+    "latitud": 34.2706111,
+    "longitud": -77.9025556,
+    "country": "NC"
+  },
+  {
+    "nombre": "Fayetteville Regional Airport",
+    "latitud": 34.9912002,
+    "longitud": -78.8803024,
+    "country": "NC"
+  },
+  {
+    "nombre": "Coastal Carolina Regional Airport",
+    "latitud": 35.073,
+    "longitud": -77.0435,
+    "country": "NC"
+  },
+  {
+    "nombre": "Albert J. Ellis Airport",
+    "latitud": 34.829164,
+    "longitud": -77.612139,
+    "country": "NC"
+  },
+  {
+    "nombre": "Concord-Padgett Regional Airport",
+    "latitud": 35.387805,
+    "longitud": -80.709881,
+    "country": "NC"
+  },
+  {
+    "nombre": "Pitt-Greenville Airport",
+    "latitud": 35.635278,
+    "longitud": -77.385,
+    "country": "NC"
+  },
+  {
+    "nombre": "Hickory Regional Airport",
+    "latitud": 35.7416667,
+    "longitud": -81.3894444,
+    "country": "NC"
+  },
+  {
+    "nombre": "Smith Reynolds Airport (Winston-Salem)",
+    "latitud": 36.1336111,
+    "longitud": -80.2227778,
+    "country": "NC"
+  },
+  {
+    "nombre": "Rocky Mount-Wilson Regional Airport",
+    "latitud": 35.8563889,
+    "longitud": -77.8919444,
+    "country": "NC"
+  },
+  {
+    "nombre": "Asheboro Regional Airport",
+    "latitud": 35.650691,
+    "longitud": -79.895629,
+    "country": "NC"
+  },
+  {
+    "nombre": "Duplin County Airport (Kenansville)",
+    "latitud": 34.9894444,
+    "longitud": -77.9811111,
+    "country": "NC"
+  },
+  {
+    "nombre": "Western Carolina Regional Airport (Andrews-Murphy)",
+    "latitud": 35.1941667,
+    "longitud": -83.8641667,
+    "country": "NC"
+  },
+  {
+    "nombre": "Jackson County Airport (Sylva)",
+    "latitud": 35.3177778,
+    "longitud": -83.2036111,
+    "country": "NC"
+  },
+  {
+    "nombre": "First Flight Airport (Kill Devil Hills)",
+    "latitud": 36.0191667,
+    "longitud": -75.6719444,
+    "country": "NC"
+  },
+  {
+    "nombre": "Shelby-Cleveland County Regional Airport",
+    "latitud": 35.2566667,
+    "longitud": -81.6011111,
+    "country": "NC"
+  },
+  {
+    "nombre": "Martin County Airport (Williamston)",
+    "latitud": 35.8572222,
+    "longitud": -77.1783333,
+    "country": "NC"
+  }
+]
