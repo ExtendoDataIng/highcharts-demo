@@ -1,43 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Highcharts from 'highcharts/highmaps';
+import HC_map from 'highcharts/modules/map';
+import HC_coloraxis from 'highcharts/modules/coloraxis';
+import HC_accessibility from 'highcharts/modules/accessibility';
 import HighchartsReact from 'highcharts-react-official';
+import europeTopo from './europe_topo.json';
+import airportsData from './airports.json';
+import HC_markerClusters from 'highcharts/modules/marker-clusters';
+
+// Importar los módulos necesarios
+HC_map(Highcharts);
+HC_markerClusters(Highcharts);
+HC_coloraxis(Highcharts);
+HC_accessibility(Highcharts);
 
 const EuropeMap = () => {
-  const [topology, setTopology] = useState(null);
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const topologyResponse = await fetch('https://code.highcharts.com/mapdata/custom/europe.topo.json');
-        if (!topologyResponse.ok) throw new Error('Failed to fetch topology data');
-        const topologyData = await topologyResponse.json();
-        setTopology(topologyData);
-
-        const dataResponse = await fetch('https://www.highcharts.com/samples/data/european-train-stations-near-airports.json');
-        if (!dataResponse.ok) throw new Error('Failed to fetch data');
-        const dataJson = await dataResponse.json();
-        setData(dataJson);
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!topology || !data) {
-    return <div>Loading...</div>;
-  }
-
   const options = {
     chart: {
-      map: topology,
+      map: europeTopo,
     },
     title: {
       text: 'European Train Stations Near Airports',
@@ -83,48 +63,53 @@ const EuropeMap = () => {
     series: [
       {
         name: 'Europe',
-        accessibility: {
-          exposeAsGroupOnly: true,
-        },
         borderColor: '#A0A0A0',
         nullColor: 'rgba(177, 244, 177, 0.5)',
         showInLegend: false,
       },
       {
         type: 'mappoint',
-        enableMouseTracking: true,
-        accessibility: {
-          point: {
-            descriptionFormat:
-              '{#if isCluster}Grouping of {clusterPointsAmount} points.{else}{name}, country code: {country}.{#endif}',
-          },
-        },
-        colorKey: 'clusterPointsAmount',
         name: 'Cities',
-        data: data,
+        data: airportsData,
+        colorKey: 'clusterPointsAmount',
         color: Highcharts.getOptions().colors[5],
         marker: {
-          lineWidth: 1,
-          lineColor: '#fff',
           symbol: 'mapmarker',
           radius: 8,
+          lineWidth: 1,
+          lineColor: '#ffffff',
         },
         dataLabels: {
+          enabled: true,
+          format: '{point.name}',
           verticalAlign: 'top',
+          style: {
+            fontSize: '10px',
+          },
+        },
+        accessibility: {
+          point: {
+            descriptionFormatter: function (point) {
+              if (point.isCluster) {
+                return `Grouping of ${point.clusterPointsAmount} points.`;
+              } else {
+                return `${point.name}, country code: ${point.country}.`;
+              }
+            },
+          },
         },
       },
     ],
   };
 
   return (
-    <div>
-      <HighchartsReact
-        highcharts={Highcharts}
-        constructorType={'mapChart'}
-        options={options}
-      />
-    </div>
+    <HighchartsReact
+      highcharts={Highcharts}
+      constructorType={'mapChart'}
+      options={options}
+    />
   );
 };
 
 export default EuropeMap;
+
