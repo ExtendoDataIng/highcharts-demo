@@ -12,6 +12,11 @@ DataGridPlugin.custom.connectDataGrid(DataGrid)
 Dashboards.PluginHandler.addPlugin(DataGridPlugin)
 
 Highcharts.setOptions({
+  sync: {
+    visibility: true,
+    highlight: true,
+    extremes: true,
+  },
   chart: {
       type: 'area',
       spacingTop: 20,
@@ -56,7 +61,8 @@ Highcharts.setOptions({
       pointFormat: '{point.y}',
       headerFormat: '',
       shadow: false,
-      valueDecimals: 0
+      valueDecimals: 0, 
+
   }
 });
 

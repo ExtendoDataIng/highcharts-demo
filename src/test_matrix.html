@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
+  <style>
+    #heatmap {
+      width: 100%;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="heatmap"></div>
+
+  <script>
+    // Datos iniciales
+    const data = [
+      ['Row 1', 100, 80, 60, 40, 20],
+      ['Row 2', 90, 70, 50, 30, 10],
+      ['Row 3', 85, 65, 45, 25, 5],
+      ['Row 4', 75, 55, 35, 15, 0],
+    ];
+
+    // Configuración del heatmap
+    const container = document.getElementById('heatmap');
+    const hot = new Handsontable(container, {
+      data: data,
+      colHeaders: ['Legend', 'Column 1', 'Column 2', 'Column 3', 'Column 4', 'Column 5'],
+      rowHeaders: true,
+      filters: true, // Habilitar filtros
+      dropdownMenu: true, // Filtros interactivos
+      licenseKey: 'non-commercial-and-evaluation',
+      cells: function (row, col) {
+        // Aplica colores según el valor
+        const cellProperties = {};
+        const value = this.instance.getDataAtCell(row, col);
+
+        if (typeof value === 'number') {
+          const opacity = value / 100; // Normalizar valores (0-1)
+          cellProperties.renderer = function (instance, td) {
+            td.style.backgroundColor = `rgba(128, 0, 128, ${opacity})`; // Color morado
+            td.style.color = 'white'; // Texto blanco para contraste
+            td.innerText = value; // Mostrar el valor
+          };
+        }
+
+        return cellProperties;
+      },
+    });
+  </script>
+</body>
+</html>

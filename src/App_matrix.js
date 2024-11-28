@@ -10,8 +10,8 @@ const DynamicHeatmap = () => {
     for (let i = 1; i <= 10; i++) {
       const row = { row: `Clinical ${i}` }; // Row legends
       for (let j = 1; j <= 4; j++) {
-        // Generate only positive numeric values
-        const value = Math.random() < 0.1 ? null : parseFloat((Math.random() * 200 - 100).toFixed(2)); // 10% chance to be null
+        // Randomly decide whether to generate a value or null (10% chance for null)
+        const value = Math.random() < 0.1 ? null : (Math.random() * 200 - 100).toFixed(2); // 10% chance to be null
         row[`Facility ${j}`] = value;
       }
       rows.push(row);
