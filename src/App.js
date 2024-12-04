@@ -4,85 +4,149 @@ import "ag-grid-community/styles/ag-grid.css"; // Base styles
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Alpine theme
 
 const DynamicHeatmap = () => {
-  // Generate dynamic data for the 10x4 matrix
-  const generateData = () => {
-    const rows = [];
-    for (let i = 1; i <= 10; i++) {
-      const row = { row: `Clinical ${i}` }; // Row legends
-      for (let j = 1; j <= 4; j++) {
-        // Generate only positive numeric values
-        const value = Math.random() < 0.1 ? null : parseFloat((Math.random() * 200 - 100).toFixed(2)); // 10% chance to be null
-        row[`Facility ${j}`] = value;
-      }
-      rows.push(row);
-    }
-    return rows;
-  };
-
-  // Generate column definitions dynamically
   const generateColumns = (data) => {
     if (!data || data.length === 0) return [];
 
-    return Object.keys(data[0]).map((key, index) => ({
-      headerName: key === "row" ? "Legend" : key, // Use "Legend" for the first column, dynamic headers for others
-      field: key,
-      filter: key === "row" ? false : "agNumberColumnFilter", // Enable filters for numeric columns
-      cellStyle: key === "row" ? { fontWeight: "bold", textAlign: "left" } : heatmapStyle, // Heatmap for numeric
-      sortable: true, // Enable sorting
-      resizable: true, // Allow resizing
+    return Object.keys(data[0]).map((key) => ({
+      headerName: key, // Mantener los puntos en los encabezados
+      field: key.replace(/\./g, "_"), // Usar un campo sin puntos como identificador interno
+      filter: key === "0_Row" ? false : "agNumberColumnFilter",
+      cellStyle: key === "0_Row" ? { fontWeight: "bold", textAlign: "left" } : heatmapStyle,
+      sortable: true,
+      resizable: true,
     }));
   };
 
-  // Heatmap style for blue gradient (negative to positive)
+  // Estilo de heatmap con gradiente azul
   const heatmapStyle = (params) => {
     const value = parseFloat(params.value);
-    if (isNaN(value)) return null; // Skip styling for non-numeric cells
+    if (isNaN(value)) return null;
 
-    // Normalizing values between -100 and 100
-    const normalizedValue = Math.min(Math.max(value, -100), 100) / 100;
-
-    // Adjust color intensity
-    const opacity = Math.abs(normalizedValue); // Use absolute value for intensity
-    const isPositive = normalizedValue >= 0;
+    const opacity = Math.abs(value);
+    const isPositive = value >= 0;
 
     return {
       backgroundColor: isPositive
-        ? `rgba(0, 0, 255, ${opacity})` // Positive: blue with intensity
-        : `rgba(200, 200, 255, ${opacity / 2})`, // Negative: light blue-gray
-      color: "black", // Text color for better readability
-      fontWeight: "", // Bold text
-      textAlign: "center", // Center text
+        ? `rgba(0, 0, 255, ${opacity})`
+        : `rgba(200, 200, 255, ${opacity / 2})`,
+      color: "black",
+      textAlign: "center",
     };
   };
 
-  // Generate data and columns
-  const data = generateData();
-  const columns = generateColumns(data);
+  // Normalizar claves de datos para que coincidan con los identificadores de columna
+  const normalizeDataKeys = (data) => {
+    return data.map((row) => {
+      const newRow = {};
+      Object.keys(row).forEach((key) => {
+        const normalizedKey = key.replace(/\./g, "_"); // Reemplazar puntos en las claves de los datos
+        newRow[normalizedKey] = row[key];
+      });
+      return newRow;
+    });
+  };
+
+  const normalizedData = normalizeDataKeys(staticData);
+  const columns = generateColumns(staticData);
 
   return (
     <div
       className="ag-theme-alpine"
       style={{
-        height: 500, // Grid height
-        width: "100%", // Full width
+        height: 500,
+        width: "100%",
       }}
     >
       <AgGridReact
-        rowData={data} // Pass generated data
-        columnDefs={columns} // Pass generated columns
-        animateRows={true} // Animate row changes
+        rowData={normalizedData} // Usar datos normalizados
+        columnDefs={columns} // Usar columnas generadas dinámicamente
+        animateRows={true}
         defaultColDef={{
-          sortable: true, // Enable sorting by default
-          resizable: true, // Allow resizing by default
+          sortable: true,
+          resizable: true,
         }}
       />
     </div>
   );
 };
 
-// Example usage
-const App = () => {
-  return <DynamicHeatmap />;
-};
+  const staticData = [
+		{
+			"0_Row": "Behavioral Health",
+			"1_St.Elizabeth Hospital": 0.31,
+			"Providence Regional Medical Center": 0.17,
+			"Providence Sacred Heart Medical Center": 0.37,
+			"Swedish First Hill Campus": 0.31,
+			"UW Medical Center - Montlake": 0.15
+		},
+		{
+			"0_Row": "Cardiovascular",
+			"1_St.Elizabeth Hospital": 0.25,
+			"Providence Regional Medical Center": 0.31,
+			"Providence Sacred Heart Medical Center": 0.22,
+			"Swedish First Hill Campus": 0.46,
+			"UW Medical Center - Montlake": 0.11
+		},
+		{
+			"0_Row": "General Medicine",
+			"1_St.Elizabeth Hospital": 0.04,
+			"Providence Regional Medical Center": 0.05,
+			"Providence Sacred Heart Medical Center": 0.07,
+			"Swedish First Hill Campus": 0.07,
+			"UW Medical Center - Montlake": 0.02
+		},
+		{
+			"0_Row": "General Surgery",
+			"1_St.Elizabeth Hospital": 0.07,
+			"Providence Regional Medical Center": 0.09,
+			"Providence Sacred Heart Medical Center": 0.12,
+			"Swedish First Hill Campus": 0.12,
+			"UW Medical Center - Montlake": 0.03
+		},
+		{
+			"0_Row": "Gynecology",
+			"1_St.Elizabeth Hospital": 0.46,
+			"Providence Regional Medical Center": 0.61,
+			"Providence Sacred Heart Medical Center": 0.89,
+			"Swedish First Hill Campus": 0.91,
+			"UW Medical Center - Montlake": 0.23
+		},
+		{
+			"0_Row": "Neonatology",
+			"1_St.Elizabeth Hospital": 0.07,
+			"Providence Regional Medical Center": 0.07,
+			"Providence Sacred Heart Medical Center": 0.08,
+			"Swedish First Hill Campus": 0.09,
+			"UW Medical Center - Montlake": 0.03
+		},
+		{
+			"0_Row": "Obstetrics",
+			"1_St.Elizabeth Hospital": 0.03,
+			"Providence Regional Medical Center": 0.04,
+			"Providence Sacred Heart Medical Center": 0.04,
+			"Swedish First Hill Campus": 0.05,
+			"UW Medical Center - Montlake": 0.02
+		},
+		{
+			"0_Row": "Oncology",
+			"1_St.Elizabeth Hospital": 0.16,
+			"Providence Regional Medical Center": 0.2,
+			"Providence Sacred Heart Medical Center": 0.29,
+			"Swedish First Hill Campus": 0.3,
+			"UW Medical Center - Montlake": 0.08
+		},
+		{
+			"0_Row": "Pulmonary",
+			"1_St.Elizabeth Hospital": 0.12,
+			"Providence Regional Medical Center": 0.15,
+			"Providence Sacred Heart Medical Center": 0.22,
+			"Swedish First Hill Campus": 0.22,
+			"UW Medical Center - Montlake": 0.06
+		}
+	];
 
-export default App;
+  const App = () => {
+    return <DynamicHeatmap />;
+  };
+  
+  export default App;
