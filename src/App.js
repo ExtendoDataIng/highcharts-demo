@@ -73,75 +73,75 @@ const DynamicHeatmap = () => {
   const staticData = [
 		{
 			"0_Row": "Behavioral Health",
-			"1_St.Elizabeth Hospital": 0.31,
-			"Providence Regional Medical Center": 0.17,
-			"Providence Sacred Heart Medical Center": 0.37,
-			"Swedish First Hill Campus": 0.31,
-			"UW Medical Center - Montlake": 0.15
+			"1_St. Anthony Hospital": null,
+			"Southwest Medical Center": 0.21,
+			"St. Joseph Medical Center": null,
+			"Swedish First Hill Campus": 0.45,
+			"UW Medical Center - Montlake": 2.64
 		},
 		{
 			"0_Row": "Cardiovascular",
-			"1_St.Elizabeth Hospital": 0.25,
-			"Providence Regional Medical Center": 0.31,
-			"Providence Sacred Heart Medical Center": 0.22,
-			"Swedish First Hill Campus": 0.46,
-			"UW Medical Center - Montlake": 0.11
+			"1_St. Anthony Hospital": null,
+			"Southwest Medical Center": null,
+			"St. Joseph Medical Center": null,
+			"Swedish First Hill Campus": null,
+			"UW Medical Center - Montlake": 2.64
 		},
 		{
 			"0_Row": "General Medicine",
-			"1_St.Elizabeth Hospital": 0.04,
-			"Providence Regional Medical Center": 0.05,
-			"Providence Sacred Heart Medical Center": 0.07,
-			"Swedish First Hill Campus": 0.07,
-			"UW Medical Center - Montlake": 0.02
+			"1_St. Anthony Hospital": null,
+			"Southwest Medical Center": null,
+			"St. Joseph Medical Center": null,
+			"Swedish First Hill Campus": 1.17,
+			"UW Medical Center - Montlake": 2.64
 		},
 		{
 			"0_Row": "General Surgery",
-			"1_St.Elizabeth Hospital": 0.07,
-			"Providence Regional Medical Center": 0.09,
-			"Providence Sacred Heart Medical Center": 0.12,
-			"Swedish First Hill Campus": 0.12,
-			"UW Medical Center - Montlake": 0.03
+			"1_St. Anthony Hospital": 2.25,
+			"Southwest Medical Center": null,
+			"St. Joseph Medical Center": 2.25,
+			"Swedish First Hill Campus": 2.31,
+			"UW Medical Center - Montlake": 2.64
 		},
 		{
 			"0_Row": "Gynecology",
-			"1_St.Elizabeth Hospital": 0.46,
-			"Providence Regional Medical Center": 0.61,
-			"Providence Sacred Heart Medical Center": 0.89,
-			"Swedish First Hill Campus": 0.91,
-			"UW Medical Center - Montlake": 0.23
+			"1_St. Anthony Hospital": null,
+			"Southwest Medical Center": null,
+			"St. Joseph Medical Center": null,
+			"Swedish First Hill Campus": null,
+			"UW Medical Center - Montlake": 2.64
 		},
 		{
 			"0_Row": "Neonatology",
-			"1_St.Elizabeth Hospital": 0.07,
-			"Providence Regional Medical Center": 0.07,
-			"Providence Sacred Heart Medical Center": 0.08,
-			"Swedish First Hill Campus": 0.09,
-			"UW Medical Center - Montlake": 0.03
+			"1_St. Anthony Hospital": null,
+			"Southwest Medical Center": null,
+			"St. Joseph Medical Center": null,
+			"Swedish First Hill Campus": 0.45,
+			"UW Medical Center - Montlake": 2.64
 		},
 		{
 			"0_Row": "Obstetrics",
-			"1_St.Elizabeth Hospital": 0.03,
-			"Providence Regional Medical Center": 0.04,
-			"Providence Sacred Heart Medical Center": 0.04,
-			"Swedish First Hill Campus": 0.05,
-			"UW Medical Center - Montlake": 0.02
+			"1_St. Anthony Hospital": null,
+			"Southwest Medical Center": null,
+			"St. Joseph Medical Center": null,
+			"Swedish First Hill Campus": 3.1,
+			"UW Medical Center - Montlake": 2.64
 		},
 		{
 			"0_Row": "Oncology",
-			"1_St.Elizabeth Hospital": 0.16,
-			"Providence Regional Medical Center": 0.2,
-			"Providence Sacred Heart Medical Center": 0.29,
-			"Swedish First Hill Campus": 0.3,
-			"UW Medical Center - Montlake": 0.08
+			"1_St. Anthony Hospital": null,
+			"Southwest Medical Center": null,
+			"St. Joseph Medical Center": null,
+			"Swedish First Hill Campus": null,
+			"UW Medical Center - Montlake": 2.64
 		},
 		{
 			"0_Row": "Pulmonary",
-			"1_St.Elizabeth Hospital": 0.12,
-			"Providence Regional Medical Center": 0.15,
-			"Providence Sacred Heart Medical Center": 0.22,
-			"Swedish First Hill Campus": 0.22,
-			"UW Medical Center - Montlake": 0.06
+			"1_St. Anthony Hospital": null,
+			"Southwest Medical Center": null,
+			"St. Joseph Medical Center": null,
+			"Swedish First Hill Campus": null,
+			"UW Medical Center - Montlake": 2.64
 		}
 	];
 

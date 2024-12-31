@@ -1,16 +1,209 @@
-const data = [
-    ['x', 'Cardiology', 'Orthopedics'],
-    [1, 0.0001, 0.0001],
-    [10, 0.001, 0.001],
-    [20, 0.01, 0.01],
-    [30, 0.15, 0.15],
-    [40, 0.45, 0.45],
-    [50, 1, 1],  // Pico de la campana en 1
-    [60, 0.45, 0.45],
-    [70, 0.15, 0.15],
-    [80, 0.01, 0.01],
-    [90, 0.001, 0.001],
-    [100, 0.0001, 0.0001]
+const data = 
+[
+    [
+        "x",
+        "Behavioral Health",
+        "Cardiovascular",
+        "General Medicine",
+        "General Surgery",
+        "Gynecology",
+        "Neonatology",
+        "Obstetrics",
+        "Oncology",
+        "Pulmonary"
+    ],
+    [
+        -5,
+        0.0004,
+        0,
+        0,
+        0,
+        0,
+        0.0001,
+        0,
+        0,
+        0
+    ],
+    [
+        -4,
+        0.0044,
+        0,
+        0,
+        0,
+        0,
+        0.0017,
+        0,
+        0,
+        0
+    ],
+    [
+        -3,
+        0.0298,
+        0,
+        0,
+        0,
+        0,
+        0.0141,
+        0,
+        0,
+        0
+    ],
+    [
+        -2,
+        0.1343,
+        0,
+        0.0009,
+        0,
+        0,
+        0.076,
+        0,
+        0,
+        0
+    ],
+    [
+        -1,
+        0.3984,
+        0,
+        0.0202,
+        0,
+        0,
+        0.2705,
+        0,
+        0,
+        0
+    ],
+    [
+        0,
+        0.7781,
+        0,
+        0.1873,
+        0,
+        0,
+        0.6347,
+        0,
+        0,
+        0
+    ],
+    [
+        1,
+        1,
+        0,
+        0.6874,
+        0,
+        0,
+        0.9814,
+        0,
+        0,
+        0
+    ],
+    [
+        2,
+        0.8459,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0.0303,
+        1,
+        1
+    ],
+    [
+        3,
+        0.471,
+        1,
+        0.5765,
+        0.073,
+        1,
+        0.6715,
+        1,
+        1,
+        1
+    ],
+    [
+        4,
+        0.1726,
+        0,
+        0.1317,
+        0,
+        0,
+        0.2972,
+        0.0026,
+        0,
+        0
+    ],
+    [
+        5,
+        0.0416,
+        0,
+        0.0119,
+        0,
+        0,
+        0.0867,
+        0,
+        0,
+        0
+    ],
+    [
+        6,
+        0.0066,
+        0,
+        0.0004,
+        0,
+        0,
+        0.0167,
+        0,
+        0,
+        0
+    ],
+    [
+        7,
+        0.0007,
+        0,
+        0,
+        0,
+        0,
+        0.0021,
+        0,
+        0,
+        0
+    ],
+    [
+        8,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.0002,
+        0,
+        0,
+        0
+    ],
+    [
+        9,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    [
+        10,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ]
 ];
 
 Highcharts.setOptions({
@@ -44,93 +237,11 @@ Highcharts.setOptions({
         }
     },
     xAxis: {
-        min: 1,
-        max: 100,
+        min: -5,
+        max: 10,
         accessibility: {
             description: 'Range from 1 to 100.'
-        },
-        plotLines: [
-            {
-                value: 30,
-                color: 'black',
-                width: 2,
-                dashStyle: 'ShortDash',
-                label: {
-                    text: 'Facility 1',
-                    align: 'center',
-                    verticalAlign: 'top',
-                    y: -15, // Alinea la etiqueta un poco más arriba
-                    rotation: 0, // Asegura que la etiqueta se muestre de manera horizontal
-                    style: {
-                        color: 'black'
-                    }
-                }
-            },
-            {
-                value: 50,
-                color: 'black',
-                width: 2,
-                dashStyle: 'ShortDash',
-                label: {
-                    text: 'Facility 2',
-                    align: 'center',
-                    verticalAlign: 'top',
-                    y: -15,
-                    rotation: 0,
-                    style: {
-                        color: 'black'
-                    }
-                }
-            },
-            {
-                value: 70,
-                color: 'black',
-                width: 2,
-                dashStyle: 'ShortDash',
-                label: {
-                    text: 'Facility 3',
-                    align: 'center',
-                    verticalAlign: 'top',
-                    y: -15,
-                    rotation: 0,
-                    style: {
-                        color: 'black'
-                    }
-                }
-            },
-            {
-                value: 90,
-                color: 'black',
-                width: 2,
-                dashStyle: 'ShortDash',
-                label: {
-                    text: 'Facility 4',
-                    align: 'center',
-                    verticalAlign: 'top',
-                    y: -15,
-                    rotation: 0,
-                    style: {
-                        color: 'black'
-                    }
-                }
-            },
-            {
-                value: 60,
-                color: 'red',  // Color rojo para "Member"
-                width: 2,
-                dashStyle: 'ShortDash',
-                label: {
-                    text: 'Member',
-                    align: 'center',
-                    verticalAlign: 'top',
-                    y: -15,
-                    rotation: 0,  // Horizontal
-                    style: {
-                        color: 'red'
-                    }
-                }
-            }
-        ]
+        }
     }
 });
 
@@ -188,8 +299,8 @@ Dashboards.board('container', {
         connector: {
             id: 'connector-1',
             columnAssignment: [{
-                seriesId: 'Cardiology',
-                data: ['x', 'Cardiology']
+                seriesId: 'Behavioral Health',
+                data: ['x', 'Behavioral Health']
             }]
         },
         sync: {
@@ -203,7 +314,7 @@ Dashboards.board('container', {
                 }
             },
             title: {
-                text: 'Cardiology',
+                text: 'Behavioral Health',
                 align: 'left'
             },
             legend: {
@@ -211,7 +322,91 @@ Dashboards.board('container', {
             },
             credits: {
                 enabled: false
-            }
+            },
+            xAxis: {
+                plotLines: [
+                    {
+                        value: 0.45,
+                        color: 'black',
+                        width: 2,
+                        dashStyle: 'ShortDash',
+                        label: {
+                            text: 'Facility 1',
+                            align: 'center',
+                            verticalAlign: 'top',
+                            y: -15, // Alinea la etiqueta un poco más arriba
+                            rotation: 0, // Asegura que la etiqueta se muestre de manera horizontal
+                            style: {
+                                color: 'black'
+                            }
+                        }
+                    },
+                    {
+                        value: 3,
+                        color: 'black',
+                        width: 2,
+                        dashStyle: 'ShortDash',
+                        label: {
+                            text: 'Facility 2',
+                            align: 'center',
+                            verticalAlign: 'top',
+                            y: -15,
+                            rotation: 0,
+                            style: {
+                                color: 'black'
+                            }
+                        }
+                    },
+                    {
+                        value: 4.34,
+                        color: 'black',
+                        width: 2,
+                        dashStyle: 'ShortDash',
+                        label: {
+                            text: 'Facility 3',
+                            align: 'center',
+                            verticalAlign: 'top',
+                            y: -15,
+                            rotation: 0,
+                            style: {
+                                color: 'black'
+                            }
+                        }
+                    },
+                    {
+                        value: -3.4,
+                        color: 'black',
+                        width: 2,
+                        dashStyle: 'ShortDash',
+                        label: {
+                            text: 'Facility 4',
+                            align: 'center',
+                            verticalAlign: 'top',
+                            y: -15,
+                            rotation: 0,
+                            style: {
+                                color: 'black'
+                            }
+                        }
+                    },
+                    {
+                        value: 0,
+                        color: 'red',  // Color rojo para "Member"
+                        width: 2,
+                        dashStyle: 'ShortDash',
+                        label: {
+                            text: 'Member',
+                            align: 'center',
+                            verticalAlign: 'top',
+                            y: -15,
+                            rotation: 0,  // Horizontal
+                            style: {
+                                color: 'red'
+                            }
+                        }
+                    }
+                ]
+            },
         },
     }, {
         renderTo: 'dashboard-col-2',
@@ -219,8 +414,8 @@ Dashboards.board('container', {
         connector: {
             id: 'connector-1',
             columnAssignment: [{
-                seriesId: 'Orthopedics',
-                data: ['x', 'Orthopedics']
+                seriesId: 'Cardiovascular',
+                data: ['x', 'Cardiovascular']
             }]
         },
         sync: {
@@ -234,7 +429,7 @@ Dashboards.board('container', {
                 }
             },
             title: {
-                text: 'Orthopedics',
+                text: 'Cardiovascular',
                 align: 'left'
             },
             legend: {
