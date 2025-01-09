@@ -1,117 +1,325 @@
-Highcharts.setOptions({
-  colors: [
-    'rgba(5,141,199,0.5)', 'rgba(80,180,50,0.5)', 'rgba(237,86,27,0.5)', 'rgba(200,150,100,0.5)'
-  ]
-});
+document.addEventListener('DOMContentLoaded', function () {
+  const viz_type = [
+		"General Surgery",
+		"Obstetrics",
+		"Behavioral Health",
+		"Neonatology",
+		"Cardiovascular",
+		"Pulmonary",
+		"Oncology",
+		"Gynecology",
+		"General Medicine"
+	];
 
-const series = [
-  {
-    name: 'Market',
-    id: 'market',
-    data: [
-      [1.1, 5000], [2.2, 5500], [3.4, 7500], [4.7, 9000], [5.3, 12000],
-      [2.8, 6500], [1.6, 7000], [3.9, 11000], [4.1, 10000], [5.5, 15000],
-      [2.3, 8000], [3.7, 8500], [4.2, 9500], [5.1, 13500]
-    ],
-    marker: {
-      symbol: 'circle'
-    }
-  },
-  {
-    name: 'Member Facility',
-    id: 'member',
-    data: [
-      [1.2, 4000], [2.5, 4500], [3.1, 6000], [4.3, 7000], [5.8, 9000],
-      [1.9, 5000], [2.7, 5500], [3.8, 7000], [4.6, 8000], [5.2, 9500],
-      [1.4, 6000], [3.5, 6500], [4.8, 7500], [5.4, 10000]
-    ],
-    marker: {
-      symbol: 'triangle'
-    }
-  },
-  {
-    name: 'Comparison Facilities',
-    id: 'comparison-facilities',
-    data: [
-      [1.3, 2000], [2.1, 3000], [3.5, 5000], [4.4, 6500], [5.6, 8000],
-      [1.7, 2500], [2.8, 3500], [3.6, 5500], [4.9, 7000], [5.9, 8500],
-      [2.2, 2800], [3.4, 4900], [4.5, 6700], [5.0, 8100]
-    ],
-    marker: {
-      symbol: 'diamond'
-    }
+  const dataJson =    [
+		{
+			"metric_value": 2.82,
+			"viz_type": "Gynecology"
+		},
+		{
+			"metric_value": 0.25,
+			"viz_type": "Behavioral Health"
+		},
+		{
+			"metric_value": 2.62,
+			"viz_type": "Gynecology"
+		},
+		{
+			"metric_value": 2.61,
+			"viz_type": "Behavioral Health"
+		},
+		{
+			"metric_value": 0.25,
+			"viz_type": "Behavioral Health"
+		},
+		{
+			"metric_value": 2.82,
+			"viz_type": "Gynecology"
+		},
+		{
+			"metric_value": 3.07,
+			"viz_type": "Behavioral Health"
+		},
+		{
+			"metric_value": 3.07,
+			"viz_type": "Gynecology"
+		},
+		{
+			"metric_value": 2.29,
+			"viz_type": "Behavioral Health"
+		},
+		{
+			"metric_value": 2.36,
+			"viz_type": "Gynecology"
+		},
+		{
+			"metric_value": 2.82,
+			"viz_type": "Cardiovascular"
+		},
+		{
+			"metric_value": 2.71,
+			"viz_type": "Cardiovascular"
+		},
+		{
+			"metric_value": 2.82,
+			"viz_type": "Cardiovascular"
+		},
+		{
+			"metric_value": 3.17,
+			"viz_type": "Cardiovascular"
+		},
+		{
+			"metric_value": 2.44,
+			"viz_type": "Cardiovascular"
+		},
+		{
+			"metric_value": 2.82,
+			"viz_type": "Oncology"
+		},
+		{
+			"metric_value": 2.61,
+			"viz_type": "Oncology"
+		},
+		{
+			"metric_value": 2.82,
+			"viz_type": "Oncology"
+		},
+		{
+			"metric_value": 3.06,
+			"viz_type": "Oncology"
+		},
+		{
+			"metric_value": 2.32,
+			"viz_type": "Oncology"
+		},
+		{
+			"metric_value": 2.82,
+			"viz_type": "Pulmonary"
+		},
+		{
+			"metric_value": 2.61,
+			"viz_type": "Pulmonary"
+		},
+		{
+			"metric_value": 2.82,
+			"viz_type": "Pulmonary"
+		},
+		{
+			"metric_value": 3.07,
+			"viz_type": "Pulmonary"
+		},
+		{
+			"metric_value": 2.33,
+			"viz_type": "Pulmonary"
+		},
+		{
+			"metric_value": 2.09,
+			"viz_type": "Neonatology"
+		},
+		{
+			"metric_value": 2.12,
+			"viz_type": "Neonatology"
+		},
+		{
+			"metric_value": 2.09,
+			"viz_type": "Neonatology"
+		},
+		{
+			"metric_value": 2.88,
+			"viz_type": "Neonatology"
+		},
+		{
+			"metric_value": 1.73,
+			"viz_type": "Neonatology"
+		},
+		{
+			"metric_value": 2.82,
+			"viz_type": "General Surgery"
+		},
+		{
+			"metric_value": 2.61,
+			"viz_type": "General Surgery"
+		},
+		{
+			"metric_value": 2.82,
+			"viz_type": "General Surgery"
+		},
+		{
+			"metric_value": 3.07,
+			"viz_type": "General Surgery"
+		},
+		{
+			"metric_value": 2.35,
+			"viz_type": "General Surgery"
+		},
+		{
+			"metric_value": 2.82,
+			"viz_type": "Obstetrics"
+		},
+		{
+			"metric_value": 2.61,
+			"viz_type": "Obstetrics"
+		},
+		{
+			"metric_value": 2.82,
+			"viz_type": "Obstetrics"
+		},
+		{
+			"metric_value": 3.07,
+			"viz_type": "Obstetrics"
+		},
+		{
+			"metric_value": 2.25,
+			"viz_type": "Obstetrics"
+		},
+		{
+			"metric_value": 2.82,
+			"viz_type": "General Medicine"
+		},
+		{
+			"metric_value": 2.61,
+			"viz_type": "General Medicine"
+		},
+		{
+			"metric_value": 2.82,
+			"viz_type": "General Medicine"
+		},
+		{
+			"metric_value": 2.96,
+			"viz_type": "General Medicine"
+		},
+		{
+			"metric_value": 2.33,
+			"viz_type": "General Medicine"
+		}
+	];
+
+  let redrawing = false;
+
+  // Create the series data dynamically from the viz_type array
+  let dataArray = [];
+  for (let i = 0; i < viz_type.length; i++) {
+    dataArray.push([]);  // Create an empty array for each viz_type
   }
-];
 
-Highcharts.chart('container', {
-  chart: {
-    type: 'scatter',
-    zooming: {
-      type: 'xy'
-    }
-  },
-  title: {
-    text: 'Quality vs. Rate Analysis',  // Título principal
-    align: 'left'
-  },
-  subtitle: {
-    text: 'Cardiology <br>Relationship between CMS quality ratings and reimbursement rates',  // Texto combinado
-    align: 'left',
-    useHTML: true  // Habilita HTML para usar <br> para saltos de línea
-  },
-  xAxis: {
-    title: {
-      text: 'CMS Quality Rating'
+  // Map the data to the correct position based on viz_type
+  dataJson.forEach((e) => {
+    viz_type.forEach((key, value) => {
+      if (e.viz_type === key) {
+        dataArray[value].push(e.metric_value); // Assuming 'metric_value' is the data you want to plot
+      }
+    });
+  });
+
+  // Continue with the existing code for processing and plotting the chart
+  let step = 1,
+    precision = 0.00000000001,
+    width = 4;
+
+  let data = processDensity(
+    step,
+    precision,
+    width,
+    ...dataArray // Use the dynamic dataArray with spread operator
+  );
+
+  let chartsNbr = data.results.length;
+  let xi = data.xiData;
+  let stat = data.stat;
+
+  let dataSeries = [],
+    series = [];
+  data.results.forEach((e, i) => {
+    dataSeries.push([]);
+    dataSeries[i] = e;
+    series.push({
+      data: dataSeries[i],
+      name: viz_type[i],
+      zIndex: chartsNbr - i
+    });
+  });
+
+  Highcharts.chart("container", {
+    chart: {
+      type: "areasplinerange",
+      animation: true,
+      events: {
+        render() {
+          if (!redrawing) {
+            redrawing = true;
+            this.series.forEach((s) => {
+              s.update({
+                fillColor: {
+                  linearGradient: [0, 0, this.plotWidth, 0],
+                  stops: [
+                    [0, Highcharts.color("yellow").setOpacity(0).get("rgba")],
+                    [0.25, "#FFA500"], // orange
+                    [0.5, "#FF0033"], // red
+                    [0.75, "#7A378B"] // purple
+                  ]
+                }
+              });
+            });
+            redrawing = false;
+          }
+        }
+      }
     },
-    categories: ['1', '2', '3', '4', '5'],  // Categorías en el eje X
-    tickInterval: 1,  // Intervalo de 1 en el eje X
-    startOnTick: true,
-    endOnTick: true,
-    showLastLabel: true
-  },
-  yAxis: {
     title: {
-      text: 'Rate ($)'
+      text: "Rate Distribution"
     },
-    min: 0,
-    max: 16000,
-    tickInterval: 4000,  // Múltiplos de 4000
-    labels: {
-      format: '${value}'  // Formato con el símbolo de dólar
-    }
-  },
-  legend: {
-    enabled: true,
-    verticalAlign: 'top',  // Mueve la leyenda a la parte superior
-    layout: 'horizontal',  // Coloca la leyenda horizontalmente
-    align: 'center'  // Alinea la leyenda al centro
-  },
-  plotOptions: {
-    scatter: {
-      marker: {
-        radius: 5,
-        symbol: 'circle',
+    xAxis: {
+      labels: { format: "{value} % " },
+      min: -1.99999,
+    },
+    yAxis: {
+      title: { text: null },
+      categories: viz_type,
+      max: data.results.length,
+      labels: {
+        formatter: function () {
+          if (this.pos < chartsNbr) return this.value;
+        },
+        style: {
+          textTransform: "capitalize",
+          fontSize: "9px"
+        }
+      },
+      startOnTick: true,
+      gridLineWidth: 1,
+      tickmarkPlacement: "on"
+    },
+    tooltip: {
+      useHTML: true,
+      shared: true,
+      crosshairs: true,
+      valueDecimals: 3,
+      headerFormat: null,
+      pointFormat: "<b>{series.name}</b>: {point.x} % <br/>",
+      footerFormat: null
+    },
+    plotOptions: {
+      areasplinerange: {
+        marker: {
+          enabled: false
+        },
         states: {
           hover: {
-            enabled: true,
-            lineColor: 'rgb(100,100,100)'
-          }
-        }
-      },
-      states: {
-        hover: {
-          marker: {
             enabled: false
           }
-        }
-      },
-      jitter: {
-        x: 0.005
+        },
+        pointStart: xi[0],
+        animation: {
+          duration: 0
+        },
+        fillColor: "",
+        lineWidth: 1,
+        color: "black"
       }
-    }
-  },
-  tooltip: {
-    pointFormat: 'CMS Quality Rating: {point.x}<br/>Rate: ${point.y}'
-  },
-  series: series
+    },
+    legend: {
+      enabled: false
+    },
+    series: series
+  });
 });
