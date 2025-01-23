@@ -1,154 +1,122 @@
-import React from "react";
+"use client";
+
+import React, { useMemo, useState, useRef, useCallback } from "react";
+import { createRoot } from "react-dom/client";
 import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/styles/ag-grid.css"; // Base styles
-import "ag-grid-community/styles/ag-theme-alpine.css"; // Alpine theme
+import { ClientSideRowModelModule, CsvExportModule, ModuleRegistry } from "ag-grid-community";
 
-const DynamicHeatmap = () => {
-  const generateColumns = (data) => {
-    if (!data || data.length === 0) return [];
+// Registrar los módulos de ag-grid-community
+ModuleRegistry.registerModules([ClientSideRowModelModule, CsvExportModule]);
 
-    return Object.keys(data[0]).map((key) => ({
-      headerName: key, // Mantener los puntos en los encabezados
-      field: key.replace(/\./g, "_"), // Usar un campo sin puntos como identificador interno
-      filter: key === "0_Row" ? false : "agNumberColumnFilter",
-      cellStyle: key === "0_Row" ? { fontWeight: "bold", textAlign: "left" } : heatmapStyle,
-      sortable: true,
-      resizable: true,
-    }));
+const getValue = (inputSelector) => {
+  const text = document.querySelector(inputSelector).value;
+  switch (text) {
+    case "none":
+      return;
+    case "tab":
+      return "\t";
+    default:
+      return text;
+  }
+};
+
+const getParams = () => {
+  return {
+    columnSeparator: getValue("#columnSeparator"),
   };
+};
 
-  // Estilo de heatmap con gradiente azul
-  const heatmapStyle = (params) => {
-    const value = parseFloat(params.value);
-    if (isNaN(value)) return null;
-
-    const opacity = Math.abs(value);
-    const isPositive = value >= 0;
-
+const GridExample = () => {
+  const gridRef = useRef();
+  const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
+  const gridStyle = useMemo(() => ({ height: "100%", width: "100%" }), []);
+  const [rowData, setRowData] = useState([
+    { make: "Toyota", model: "Celica", price: 35000 },
+    { make: "Ford", model: "Mondeo", price: 32000 },
+    { make: "Porsche", model: "Boxster", price: 72000 },
+  ]);
+  
+  const defaultColDef = useMemo(() => {
     return {
-      backgroundColor: isPositive
-        ? `rgba(0, 0, 255, ${opacity})`
-        : `rgba(200, 200, 255, ${opacity / 2})`,
-      color: "black",
-      textAlign: "center",
+      editable: true,
+      minWidth: 100,
+      flex: 1,
     };
-  };
+  }, []);
+  
+  const [columnDefs, setColumnDefs] = useState([
+    { field: "make" },
+    { field: "model" },
+    { field: "price" },
+  ]);
 
-  // Normalizar claves de datos para que coincidan con los identificadores de columna
-  const normalizeDataKeys = (data) => {
-    return data.map((row) => {
-      const newRow = {};
-      Object.keys(row).forEach((key) => {
-        const normalizedKey = key.replace(/\./g, "_"); // Reemplazar puntos en las claves de los datos
-        newRow[normalizedKey] = row[key];
-      });
-      return newRow;
-    });
-  };
+  const onBtnExport = useCallback(() => {
+    const params = getParams();
+    if (params.columnSeparator) {
+      alert(
+        "NOTE: you are downloading a file with non-standard separators - it may not render correctly in Excel."
+      );
+    }
+    gridRef.current.api.exportDataAsCsv(params);
+  }, []);
 
-  const normalizedData = normalizeDataKeys(staticData);
-  const columns = generateColumns(staticData);
+  const onBtnUpdate = useCallback(() => {
+    document.querySelector("#csvResult").value =
+      gridRef.current.api.getDataAsCsv(getParams());
+  }, []);
 
   return (
-    <div
-      className="ag-theme-alpine"
-      style={{
-        height: 500,
-        width: "100%",
-      }}
-    >
-      <AgGridReact
-        rowData={normalizedData} // Usar datos normalizados
-        columnDefs={columns} // Usar columnas generadas dinámicamente
-        animateRows={true}
-        defaultColDef={{
-          sortable: true,
-          resizable: true,
-        }}
-      />
+    <div style={containerStyle}>
+      <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+        <div style={{ display: "flex" }}>
+          <div className="row">
+            <label>columnSeparator = </label>
+            <select id="columnSeparator">
+              <option value="none">(default)</option>
+              <option value="tab">tab</option>
+              <option value="|">bar (|)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style={{ margin: "10px 0" }}>
+          <button onClick={onBtnUpdate}>Show CSV export content text</button>
+          <button onClick={onBtnExport}>Download CSV export file</button>
+        </div>
+
+        <div
+          style={{
+            flex: "1 1 0",
+            position: "relative",
+            display: "flex",
+            flexDirection: "row",
+            gap: "20px",
+          }}
+        >
+          <div id="gridContainer" style={{ flex: "1" }}>
+            <div style={gridStyle}>
+              <AgGridReact
+                ref={gridRef}
+                rowData={rowData}
+                defaultColDef={defaultColDef}
+                suppressExcelExport={true}
+                columnDefs={columnDefs}
+              />
+            </div>
+          </div>
+          <textarea
+            id="csvResult"
+            style={{ flex: "1" }}
+            placeholder="Click the Show CSV export content button to view exported CSV here"
+          ></textarea>
+        </div>
+      </div>
     </div>
   );
 };
 
-  const staticData = [
-		{
-			"0_Row": "Behavioral Health",
-			"1_St. Anthony Hospital": null,
-			"Southwest Medical Center": 0.21,
-			"St. Joseph Medical Center": null,
-			"Swedish First Hill Campus": 0.45,
-			"UW Medical Center - Montlake": 2.64
-		},
-		{
-			"0_Row": "Cardiovascular",
-			"1_St. Anthony Hospital": null,
-			"Southwest Medical Center": null,
-			"St. Joseph Medical Center": null,
-			"Swedish First Hill Campus": null,
-			"UW Medical Center - Montlake": 2.64
-		},
-		{
-			"0_Row": "General Medicine",
-			"1_St. Anthony Hospital": null,
-			"Southwest Medical Center": null,
-			"St. Joseph Medical Center": null,
-			"Swedish First Hill Campus": 1.17,
-			"UW Medical Center - Montlake": 2.64
-		},
-		{
-			"0_Row": "General Surgery",
-			"1_St. Anthony Hospital": 2.25,
-			"Southwest Medical Center": null,
-			"St. Joseph Medical Center": 2.25,
-			"Swedish First Hill Campus": 2.31,
-			"UW Medical Center - Montlake": 2.64
-		},
-		{
-			"0_Row": "Gynecology",
-			"1_St. Anthony Hospital": null,
-			"Southwest Medical Center": null,
-			"St. Joseph Medical Center": null,
-			"Swedish First Hill Campus": null,
-			"UW Medical Center - Montlake": 2.64
-		},
-		{
-			"0_Row": "Neonatology",
-			"1_St. Anthony Hospital": null,
-			"Southwest Medical Center": null,
-			"St. Joseph Medical Center": null,
-			"Swedish First Hill Campus": 0.45,
-			"UW Medical Center - Montlake": 2.64
-		},
-		{
-			"0_Row": "Obstetrics",
-			"1_St. Anthony Hospital": null,
-			"Southwest Medical Center": null,
-			"St. Joseph Medical Center": null,
-			"Swedish First Hill Campus": 3.1,
-			"UW Medical Center - Montlake": 2.64
-		},
-		{
-			"0_Row": "Oncology",
-			"1_St. Anthony Hospital": null,
-			"Southwest Medical Center": null,
-			"St. Joseph Medical Center": null,
-			"Swedish First Hill Campus": null,
-			"UW Medical Center - Montlake": 2.64
-		},
-		{
-			"0_Row": "Pulmonary",
-			"1_St. Anthony Hospital": null,
-			"Southwest Medical Center": null,
-			"St. Joseph Medical Center": null,
-			"Swedish First Hill Campus": null,
-			"UW Medical Center - Montlake": 2.64
-		}
-	];
+export default GridExample; // Agregar la exportación predeterminada aquí
 
-  const App = () => {
-    return <DynamicHeatmap />;
-  };
-  
-  export default App;
-
-	// New version
+const root = createRoot(document.getElementById("root"));
+root.render(<GridExample />);
+window.tearDownExample = () => root.unmount();
